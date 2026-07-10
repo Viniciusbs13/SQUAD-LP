@@ -106,7 +106,17 @@ export default function EnterprisePortal({
   
   const [expandedImageUrl, setExpandedImageUrl] = useState<string | null>(null);
   const [playingVideoId, setPlayingVideoId] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const reducedMotion = useReducedMotion();
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const formatNumber = (num: number) => {
     return num < 10 ? `0${num}` : num;
@@ -529,7 +539,7 @@ export default function EnterprisePortal({
               >
                 <button
                   onClick={onOpenQualifyModal}
-                  className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#f3e5ab] via-[#d4af37] to-[#9a7b1c] text-black font-extrabold rounded-xl gold-glow-btn text-xs uppercase tracking-wider flex items-center justify-center gap-2.5 cursor-pointer border border-[#f3e5ab]/20 transform hover:scale-[1.02] transition-transform duration-300"
+                  className="w-full sm:w-auto px-5 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-[#f3e5ab] via-[#d4af37] to-[#9a7b1c] text-black font-extrabold rounded-xl gold-glow-btn text-[11px] sm:text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer border border-[#f3e5ab]/20 transform hover:scale-[1.02] transition-transform duration-300"
                 >
                   Quero Entrar no Squad
                   <ArrowRight className="w-4 h-4 text-black" />
@@ -540,7 +550,7 @@ export default function EnterprisePortal({
                     const el = document.getElementById('pillars');
                     el?.scrollIntoView({ behavior: 'smooth' });
                   }}
-                  className="w-full sm:w-auto px-8 py-4 bg-transparent hover:bg-white/[0.03] text-[#d4af37] hover:text-[#f3e5ab] font-bold rounded-xl border border-[#d4af37]/30 hover:border-[#f3e5ab]/50 transition-all text-xs uppercase tracking-wider cursor-pointer"
+                  className="w-full sm:w-auto px-5 py-3 sm:px-8 sm:py-4 bg-transparent hover:bg-white/[0.03] text-[#d4af37] hover:text-[#f3e5ab] font-bold rounded-xl border border-[#d4af37]/30 hover:border-[#f3e5ab]/50 transition-all text-[11px] sm:text-xs uppercase tracking-wider cursor-pointer"
                 >
                   Conhecer o Método
                 </button>
@@ -589,26 +599,26 @@ export default function EnterprisePortal({
       </section>
 
       {/* 4. CINEMATIC 3D INFINITE SHOWCASE CAROUSEL */}
-      <section className="py-24 relative overflow-hidden z-10 px-4 w-full bg-gradient-to-b from-[#02050e] via-[#050e26]/30 to-[#02050e]">
+      <section className="py-10 sm:py-24 relative overflow-hidden z-10 px-4 w-full bg-gradient-to-b from-[#02050e] via-[#050e26]/30 to-[#02050e]">
         {/* Ambient lights and glows */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-blue-500/5 blur-[160px] pointer-events-none z-0" />
         <div className="absolute top-[10%] left-10 w-[300px] h-[300px] rounded-full bg-[#d4af37]/3 blur-[140px] pointer-events-none z-0" />
         
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-16">
             <span className="inline-flex items-center rounded-md bg-[#d4af37]/10 border border-[#d4af37]/20 px-3 py-1 font-mono text-[9px] font-bold text-[#d4af37] uppercase tracking-wider">
               Portfólio de Engenharia de Vendas
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mt-4 mb-4 leading-tight">
+            <h2 className="text-xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mt-4 mb-4 leading-tight">
               Vendedores de <span className="text-gold text-glow-gold font-normal italic">Alta Performance</span> em Ação
             </h2>
-            <p className="text-sm sm:text-base text-white/60 leading-relaxed font-sans max-w-2xl mx-auto">
+            <p className="text-xs sm:text-base text-white/60 leading-relaxed font-sans max-w-2xl mx-auto">
               Explore os resultados reais de quem já treina com a Cultura de Vendas toda semana e aplica scripts de vendas específicos do mercado de energia solar.
             </p>
           </div>
 
           {/* 3D Stage Container */}
-          <div className="relative h-[340px] sm:h-[420px] md:h-[500px] w-full flex items-center justify-center overflow-visible select-none mt-6">
+          <div className="relative h-[260px] sm:h-[420px] md:h-[500px] w-full flex items-center justify-center overflow-visible select-none mt-6">
             {/* 3D perspective wrapper */}
             <div 
               className="relative w-full h-full flex items-center justify-center"
@@ -625,9 +635,9 @@ export default function EnterprisePortal({
                 if (diff < -half) diff += PORTFOLIO_IMAGES.length;
 
                 // Spacing calculations
-                const tx = diff * 280;
-                const tz = -Math.abs(diff) * 160;
-                const ry = -diff * 22; // rotate in arch
+                const tx = diff * (isMobile ? 115 : 280);
+                const tz = -Math.abs(diff) * (isMobile ? 80 : 160);
+                const ry = -diff * (isMobile ? 15 : 22); // rotate in arch
                 
                 const isCenter = idx === activeIndex;
 
@@ -696,7 +706,7 @@ export default function EnterprisePortal({
       </section>
 
       {/* 5. METHOD TIMELINE SECTION (Inspired by "Innovation x Vision") */}
-      <section className="relative z-10 w-full overflow-hidden bg-black py-28 md:py-40">
+      <section className="relative z-10 w-full overflow-hidden bg-black py-12 sm:py-24 md:py-40">
         
         {/* Ambient glows */}
         <div className="absolute top-0 inset-x-0 h-[500px] bg-[radial-gradient(ellipse_at_top,_rgba(212,175,55,0.03)_0%,_transparent_75%)] pointer-events-none" />
@@ -705,14 +715,14 @@ export default function EnterprisePortal({
         <div className="max-w-7xl mx-auto px-4 md:px-8 relative">
           
           {/* Centered Editorial Title */}
-          <div className="text-center max-w-4xl mx-auto mb-28 md:mb-44 relative z-10">
+          <div className="text-center max-w-4xl mx-auto mb-10 sm:mb-24 md:mb-44 relative z-10">
             <span className="inline-flex items-center rounded-md bg-[#d4af37]/10 border border-[#d4af37]/20 px-3 py-1 font-mono text-[9px] font-bold text-[#d4af37] uppercase tracking-[0.2em] mb-6">
               Como tudo acontece
             </span>
-            <h2 className="text-5xl sm:text-7xl lg:text-8xl font-black text-white tracking-tight leading-none uppercase font-sans">
+            <h2 className="text-3xl sm:text-7xl lg:text-8xl font-black text-white tracking-tight leading-none uppercase font-sans">
               NOSSO <span className="font-serif italic text-glow-gold text-[#f3e5ab] lowercase font-normal tracking-wide inline-block">Método</span>
             </h2>
-            <p className="text-xs sm:text-sm text-white/40 leading-relaxed font-sans max-w-xl mx-auto mt-6">
+            <p className="text-[11px] sm:text-sm text-white/40 leading-relaxed font-sans max-w-xl mx-auto mt-4 sm:mt-6">
               Do primeiro clique de captação até a assinatura do contrato. Uma jornada cinematográfica pelos bastidores do nosso processo de alto nível.
             </p>
           </div>
@@ -742,17 +752,17 @@ export default function EnterprisePortal({
                       }`}
                     >
                       {/* Left: Content panel */}
-                      <div className={`lg:col-span-5 space-y-6 ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
-                        <div className="space-y-2">
+                      <div className={`lg:col-span-5 space-y-4 sm:space-y-6 ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
+                        <div className="space-y-1 sm:space-y-2">
                           <span className="text-[10px] sm:text-xs tracking-[0.25em] uppercase font-mono text-[#d4af37] font-bold block">
                             {step.category}
                           </span>
-                          <div className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight uppercase font-sans">
+                          <div className="text-xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight uppercase font-sans">
                             {step.title}
                           </div>
                         </div>
 
-                        <p className="text-sm sm:text-base text-white/60 leading-relaxed font-sans">
+                        <p className="text-xs sm:text-base text-white/60 leading-relaxed font-sans">
                           {step.description}
                         </p>
                       </div>
@@ -782,7 +792,7 @@ export default function EnterprisePortal({
 
                     {/* Fine horizontal dividing line */}
                     {idx < methodSteps.length - 1 && (
-                      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/5 to-transparent mt-10 sm:mt-12 lg:mt-14" />
+                      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/5 to-transparent mt-6 sm:mt-12 lg:mt-14" />
                     )}
                   </div>
                 );
@@ -792,20 +802,20 @@ export default function EnterprisePortal({
           </div>
 
           {/* Call to Action Final */}
-          <div className="mt-32 sm:mt-48 max-w-4xl mx-auto text-center relative z-10 border-t border-white/5 pt-28">
-            <span className="inline-flex items-center rounded-md bg-[#d4af37]/10 border border-[#d4af37]/20 px-3 py-1 font-mono text-[9px] font-bold text-[#d4af37] uppercase tracking-[0.2em] mb-6">
+          <div className="mt-16 sm:mt-48 max-w-4xl mx-auto text-center relative z-10 border-t border-white/5 pt-12 sm:pt-28">
+            <span className="inline-flex items-center rounded-md bg-[#d4af37]/10 border border-[#d4af37]/20 px-3 py-1 font-mono text-[9px] font-bold text-[#d4af37] uppercase tracking-[0.2em] mb-4 sm:mb-6">
               Aceleração de Resultados
             </span>
-            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight uppercase font-sans leading-none mb-6">
+            <h2 className="text-xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight uppercase font-sans leading-none mb-4 sm:mb-6">
               Sua próxima reunião <br className="hidden sm:inline" /> começa hoje
             </h2>
-            <p className="text-sm sm:text-base text-white/50 leading-relaxed font-sans max-w-xl mx-auto mb-10">
+            <p className="text-xs sm:text-base text-white/50 leading-relaxed font-sans max-w-xl mx-auto mb-6 sm:mb-10">
               Conecte sua empresa a um fluxo automatizado de tomada de decisão, trazendo previsibilidade e escala com leads altamente qualificados.
             </p>
 
             <button
               onClick={onOpenQualifyModal}
-              className="px-10 py-5 bg-gradient-to-r from-[#f3e5ab] via-[#d4af37] to-[#9a7b1c] text-black font-extrabold rounded-xl gold-glow-btn text-xs uppercase tracking-widest cursor-pointer border border-[#f3e5ab]/20 transform hover:scale-[1.03] active:scale-95 transition-all duration-300 inline-flex items-center gap-3"
+              className="px-5 py-3 sm:px-10 sm:py-5 bg-gradient-to-r from-[#f3e5ab] via-[#d4af37] to-[#9a7b1c] text-black font-extrabold rounded-xl gold-glow-btn text-[11px] sm:text-xs uppercase tracking-widest cursor-pointer border border-[#f3e5ab]/20 transform hover:scale-[1.03] active:scale-95 transition-all duration-300 inline-flex items-center gap-2.5"
             >
               Simular Protocolo de Entrada
               <ArrowRight className="w-4 h-4 text-black" />
@@ -816,17 +826,17 @@ export default function EnterprisePortal({
       </section>
 
       {/* 6. PILLARS OF METHOD (MÉTODO) */}
-      <section id="pillars" className="py-24 relative z-10 px-4">
+      <section id="pillars" className="py-12 sm:py-24 relative z-10 px-4">
         <div className="max-w-7xl mx-auto">
           
-          <div className="text-center max-w-2xl mx-auto mb-16">
+          <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
             <span className="inline-flex items-center rounded-md bg-[#d4af37]/10 border border-[#d4af37]/20 px-3 py-1 font-mono text-[9px] font-bold text-[#d4af37] uppercase tracking-wider">
               Pilares Operacionais
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-4 mb-4">
+            <h2 className="text-xl sm:text-4xl font-extrabold text-white tracking-tight mt-4 mb-4">
               A engenharia moderna de contratos corporativos
             </h2>
-            <p className="text-sm text-white/60 leading-relaxed font-sans">
+            <p className="text-xs sm:text-sm text-white/60 leading-relaxed font-sans">
               Um modelo unificado que cuida da atração, qualificação e suporte de fechamentos sem burocracias.
             </p>
           </div>
@@ -864,7 +874,7 @@ export default function EnterprisePortal({
       </section>
 
       {/* 7. AUTHORITY SECTION */}
-      <section className="relative py-24 sm:py-32 px-4 overflow-hidden border-b border-[#d4af37]/15">
+      <section className="relative py-12 sm:py-24 md:py-32 px-4 overflow-hidden border-b border-[#d4af37]/15">
         {/* Backdrops — mesmos glows usados no Hero */}
         <div className="absolute top-[10%] left-[8%] w-[380px] h-[380px] rounded-full bg-blue-900/10 blur-[130px] pointer-events-none z-0" />
         <div className="absolute bottom-[10%] right-[8%] w-[420px] h-[420px] rounded-full bg-[#d4af37]/5 blur-[150px] pointer-events-none z-0" />
@@ -925,7 +935,7 @@ export default function EnterprisePortal({
               className="absolute -bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-3 px-5 py-3 rounded-xl bg-[#02050e]/90 border border-[#d4af37]/30 backdrop-blur-md shadow-lg whitespace-nowrap"
             >
               <span className="w-2 h-2 rounded-full bg-[#d4af37] animate-pulse" />
-              <span className="text-white/80 font-mono text-[11px] uppercase tracking-widest">
+              <span className="text-white/80 font-mono text-[10px] sm:text-[11px] uppercase tracking-widest">
                 R$ 48M+ em faturamento documentado
               </span>
             </motion.div>
@@ -937,24 +947,24 @@ export default function EnterprisePortal({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="text-center lg:text-left"
+            className="text-center lg:text-left mt-8 lg:mt-0"
           >
-            <span className="inline-flex items-center rounded-md bg-[#d4af37]/10 border border-[#d4af37]/20 px-3 py-1 font-mono text-[10px] font-bold text-[#d4af37] uppercase tracking-[0.2em] mb-6">
+            <span className="inline-flex items-center rounded-md bg-[#d4af37]/10 border border-[#d4af37]/20 px-3 py-1 font-mono text-[10px] font-bold text-[#d4af37] uppercase tracking-[0.2em] mb-4 sm:mb-6">
               Conheça a metodologia
             </span>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-white leading-[1.1] tracking-tight mb-6">
+            <h2 className="text-xl sm:text-4xl lg:text-[44px] font-extrabold text-white leading-[1.1] tracking-tight mb-4 sm:mb-6">
               Testada em campo, <span className="text-gold text-glow-gold font-normal italic">validada por resultado</span>
             </h2>
 
-            <p className="text-sm sm:text-base text-white/60 leading-relaxed max-w-xl mx-auto lg:mx-0 mb-8">
+            <p className="text-xs sm:text-base text-white/60 leading-relaxed max-w-xl mx-auto lg:mx-0 mb-6 sm:mb-8">
               Mais de <strong className="text-white/85 font-semibold">8 anos</strong> treinando times comerciais do setor solar,
               mais de <strong className="text-white/85 font-semibold">R$ 48M</strong> em faturamento documentado por integradores que
               aplicaram o método — organizado nos três pilares que sustentam o Squad: estratégico, tático e operacional.
             </p>
 
             {/* Pilares como chips horizontais */}
-            <div className="flex flex-wrap justify-center lg:justify-start gap-3 mb-10">
+            <div className="flex flex-wrap justify-center lg:justify-start gap-3 mb-8 sm:mb-10">
               {[
                 { icon: <Layers className="w-4 h-4" />, label: 'Estratégico', sub: 'Posicionamento e oferta' },
                 { icon: <TrendingUp className="w-4 h-4" />, label: 'Tático', sub: 'Processo comercial' },
@@ -962,12 +972,12 @@ export default function EnterprisePortal({
               ].map((p, i) => (
                 <div
                   key={i}
-                  className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white/[0.03] border border-[#d4af37]/15"
+                  className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2.5 rounded-xl bg-white/[0.03] border border-[#d4af37]/15"
                 >
                   <span className="text-[#d4af37]">{p.icon}</span>
                   <div className="text-left leading-tight">
-                    <p className="text-white text-xs font-bold">{p.label}</p>
-                    <p className="text-white/40 text-[10px]">{p.sub}</p>
+                    <p className="text-white text-[11px] sm:text-xs font-bold">{p.label}</p>
+                    <p className="text-white/40 text-[9px] sm:text-[10px]">{p.sub}</p>
                   </div>
                 </div>
               ))}
@@ -978,7 +988,7 @@ export default function EnterprisePortal({
                 const el = document.getElementById('pillars');
                 el?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="inline-flex items-center gap-2.5 px-8 py-4 bg-gradient-to-r from-[#f3e5ab] via-[#d4af37] to-[#9a7b1c] text-black font-extrabold rounded-xl gold-glow-btn text-xs uppercase tracking-wider cursor-pointer border border-[#f3e5ab]/20 transform hover:scale-[1.02] transition-transform duration-300"
+              className="inline-flex items-center gap-2 px-5 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-[#f3e5ab] via-[#d4af37] to-[#9a7b1c] text-black font-extrabold rounded-xl gold-glow-btn text-[11px] sm:text-xs uppercase tracking-wider cursor-pointer border border-[#f3e5ab]/20 transform hover:scale-[1.02] transition-transform duration-300"
             >
               Explorar os 3 pilares
               <ArrowDown className="w-4 h-4" />
@@ -989,17 +999,17 @@ export default function EnterprisePortal({
 
 
       {/* 9. INTERACTIVE SUCCESS CASES (PROVA SOCIAL) */}
-      <section className="py-24 bg-gradient-to-r from-[#02050e] via-[#050e26] to-[#02050e] border-t border-[#d4af37]/15 relative z-10 px-4">
+      <section className="py-12 sm:py-24 bg-gradient-to-r from-[#02050e] via-[#050e26] to-[#02050e] border-t border-[#d4af37]/15 relative z-10 px-4">
         <div className="max-w-7xl mx-auto">
           
-          <div className="text-center max-w-2xl mx-auto mb-16">
+          <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
             <span className="inline-flex items-center rounded-md bg-[#d4af37]/10 border border-[#d4af37]/20 px-3 py-1 font-mono text-[9px] font-bold text-[#d4af37] uppercase tracking-wider">
               Casos Reais de Sucesso
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-4 mb-4">
+            <h2 className="text-xl sm:text-4xl font-extrabold text-white tracking-tight mt-4 mb-4">
               Impacto financeiro de alto nível verificado
             </h2>
-            <p className="text-sm text-white/60 leading-relaxed font-sans">
+            <p className="text-xs sm:text-sm text-white/60 leading-relaxed font-sans">
               Resultados reais e depoimentos enviados por integradores parceiros que aplicam o método de vendas em campo:
             </p>
           </div>
@@ -1125,7 +1135,7 @@ export default function EnterprisePortal({
       </section>
 
       {/* 9.1 VIDEO TESTIMONIALS (CASES EM VÍDEO) */}
-      <section className="relative py-24 sm:py-32 px-4 overflow-hidden bg-[#02050e] border-b border-[#d4af37]/15">
+      <section className="relative py-12 sm:py-24 md:py-32 px-4 overflow-hidden bg-[#02050e] border-b border-[#d4af37]/15">
         {/* Backdrops — mesmos glows do resto do site */}
         <div className="absolute top-[15%] left-[10%] w-[380px] h-[380px] rounded-full bg-[#d4af37]/5 blur-[150px] pointer-events-none z-0" />
         <div className="absolute bottom-[10%] right-[10%] w-[400px] h-[400px] rounded-full bg-blue-900/10 blur-[140px] pointer-events-none z-0" />
@@ -1137,7 +1147,7 @@ export default function EnterprisePortal({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.7 }}
-            className="text-3xl sm:text-5xl font-extrabold text-white leading-[1.1] tracking-tight mb-4"
+            className="text-xl sm:text-5xl font-extrabold text-white leading-[1.1] tracking-tight mb-4"
           >
             Cases de quem já aplicou <br className="hidden sm:inline" />
             o <span className="text-gold text-glow-gold font-normal italic">Squad</span>
@@ -1148,13 +1158,13 @@ export default function EnterprisePortal({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-sm sm:text-base text-white/50 mb-14"
+            className="text-xs sm:text-base text-white/50 mb-8 sm:mb-14"
           >
             Aperte no botão abaixo para garantir sua vaga agora mesmo
           </motion.p>
 
           {/* Grid de 2 vídeos */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 max-w-3xl mx-auto">
             {VIDEO_CASES.map((v, i) => (
               <motion.div
                 key={v.id}
@@ -1187,7 +1197,7 @@ export default function EnterprisePortal({
                       {/* Botão de play dourado */}
                       <div className="absolute inset-0 flex items-center justify-center">
                         <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-[#f3e5ab] via-[#d4af37] to-[#9a7b1c] flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300">
-                          <Play className="w-6 h-6 sm:w-7 sm:h-7 text-black fill-black ml-1" />
+                           <Play className="w-6 h-6 sm:w-7 sm:h-7 text-black fill-black ml-1" />
                         </div>
                       </div>
 
@@ -1210,7 +1220,7 @@ export default function EnterprisePortal({
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.35 }}
             onClick={onOpenQualifyModal}
-            className="mt-14 inline-flex items-center gap-2.5 px-10 py-4 bg-gradient-to-r from-[#f3e5ab] via-[#d4af37] to-[#9a7b1c] text-black font-extrabold rounded-xl gold-glow-btn text-xs uppercase tracking-widest cursor-pointer border border-[#f3e5ab]/20 transform hover:scale-[1.02] transition-transform duration-300"
+            className="mt-10 inline-flex items-center gap-2 px-6 py-3.5 sm:px-10 sm:py-4 bg-gradient-to-r from-[#f3e5ab] via-[#d4af37] to-[#9a7b1c] text-black font-extrabold rounded-xl gold-glow-btn text-[11px] sm:text-xs uppercase tracking-widest cursor-pointer border border-[#f3e5ab]/20 transform hover:scale-[1.02] transition-transform duration-300"
           >
             Garantir Minha Vaga no Squad
           </motion.button>
@@ -1218,14 +1228,14 @@ export default function EnterprisePortal({
       </section>
 
       {/* 10. PRE-FAQ ACCORDION */}
-      <section className="py-24 px-4 relative z-10">
+      <section className="py-12 sm:py-24 px-4 relative z-10">
         <div className="max-w-3xl mx-auto">
           
-          <div className="text-center mb-16">
+          <div className="text-center mb-10 sm:mb-16">
             <span className="inline-flex items-center rounded-md bg-[#d4af37]/10 border border-[#d4af37]/20 px-3 py-1 font-mono text-[9px] font-bold text-[#d4af37] uppercase tracking-wider">
               Esclarecimentos Comerciais
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-4">
+            <h2 className="text-xl sm:text-3xl font-extrabold text-white tracking-tight mt-4">
               Perguntas Frequentes
             </h2>
           </div>
@@ -1274,20 +1284,20 @@ export default function EnterprisePortal({
       </section>
 
       {/* 11. END CTAS */}
-      <section className="py-24 border-t border-[#d4af37]/15 bg-gradient-to-b from-[#02050e] to-[#050e26] text-center relative z-10 px-4">
+      <section className="py-12 sm:py-24 border-t border-[#d4af37]/15 bg-gradient-to-b from-[#02050e] to-[#050e26] text-center relative z-10 px-4">
         <div className="max-w-4xl mx-auto">
           <span className="text-[10px] font-mono text-[#d4af37] uppercase tracking-widest block mb-3 font-bold">
             Escala e Previsibilidade
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.1] mb-6">
+          <h2 className="text-xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.1] mb-6">
             Construa hoje seu time de vendas solar de alta performance.
           </h2>
-          <p className="text-xs sm:text-sm text-white/60 mb-8 max-w-md mx-auto leading-relaxed font-sans">
+          <p className="text-[11px] sm:text-sm text-white/60 mb-8 max-w-md mx-auto leading-relaxed font-sans">
             Garanta seu acesso à nossa formação semanal de vendas, scripts exclusivos e comunidade de integradores solares.
           </p>
           <button
             onClick={onOpenQualifyModal}
-            className="px-8 py-4 bg-gradient-to-r from-[#f3e5ab] via-[#d4af37] to-[#9a7b1c] text-black font-bold rounded-xl gold-glow-btn text-sm uppercase tracking-wider cursor-pointer border border-[#f3e5ab]/20"
+            className="px-6 py-3.5 sm:px-8 sm:py-4 bg-gradient-to-r from-[#f3e5ab] via-[#d4af37] to-[#9a7b1c] text-black font-bold rounded-xl gold-glow-btn text-xs sm:text-sm uppercase tracking-wider cursor-pointer border border-[#f3e5ab]/20"
           >
             Garantir Minha Vaga — R$247/mês
           </button>
