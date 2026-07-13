@@ -112,7 +112,7 @@ export default function EnterprisePortal({
   const reducedMotion = useReducedMotion();
 
   // Custom states for unpausable VSL player
-  const [vslStarted, setVslStarted] = useState(false);
+  const [vslStarted, setVslStarted] = useState(true);
   const [vslTime, setVslTime] = useState(0);
   const [vslIframeUrl, setVslIframeUrl] = useState("https://drive.google.com/file/d/1rj8heUbHlKdQ_noQFgM4bEpfgT4gb-BZ/preview?autoplay=1");
 
