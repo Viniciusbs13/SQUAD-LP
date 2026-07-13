@@ -36,7 +36,7 @@ export default function App() {
   const [selectedDate, setSelectedDate] = useState<string>('2026-07-09');
   const [selectedTime, setSelectedTime] = useState<string>('14:00');
   const [vslPlaytime, setVslPlaytime] = useState(0);
-  const [vslUnlocked, setVslUnlocked] = useState(false);
+  const [vslUnlocked, setVslUnlocked] = useState(true);
 
   // VSL Custom Simulation slides content
   const VSL_SLIDES = [

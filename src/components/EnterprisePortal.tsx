@@ -111,6 +111,36 @@ export default function EnterprisePortal({
   const [isMobile, setIsMobile] = useState(false);
   const reducedMotion = useReducedMotion();
 
+  // Custom states for unpausable VSL player
+  const [vslStarted, setVslStarted] = useState(false);
+  const [vslTime, setVslTime] = useState(0);
+  const [vslIframeUrl, setVslIframeUrl] = useState("https://drive.google.com/file/d/1rj8heUbHlKdQ_noQFgM4bEpfgT4gb-BZ/preview?autoplay=1");
+
+  useEffect(() => {
+    if (!vslStarted) return;
+    const interval = setInterval(() => {
+      setVslTime((prev) => prev + 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [vslStarted]);
+
+  const handleVslRewind = () => {
+    const newTime = Math.max(0, vslTime - 10);
+    setVslTime(newTime);
+    setVslIframeUrl(`https://drive.google.com/file/d/1rj8heUbHlKdQ_noQFgM4bEpfgT4gb-BZ/preview?autoplay=1&t=${newTime}s&start=${newTime}`);
+  };
+
+  const handleVslRestart = () => {
+    setVslTime(0);
+    setVslIframeUrl(`https://drive.google.com/file/d/1rj8heUbHlKdQ_noQFgM4bEpfgT4gb-BZ/preview?autoplay=1&t=0s&start=0`);
+  };
+
+  const formatVslTime = (totalSeconds: number) => {
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  };
+
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -414,117 +444,77 @@ export default function EnterprisePortal({
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="glass-gold rounded-[24px] p-1.5 shadow-2xl relative z-10"
             >
-              <div className="rounded-[20px] overflow-hidden bg-[#02050e]/90">
-                
-                {/* Custom Video Header */}
-                <div className="flex items-center justify-between px-5 py-3.5 border-b border-[#d4af37]/10 bg-white/[0.01] text-[10px] text-white/45 font-mono">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#d4af37]/40"></span>
-                    <span className="w-2.5 h-2.5 rounded-full bg-blue-400/30"></span>
-                    <span className="w-2.5 h-2.5 rounded-full bg-white/5"></span>
-                    <span className="ml-2 text-white/35 tracking-widest font-bold">SQUAD_CULTURADEVENDAS.mp4</span>
+              <div className="rounded-[20px] overflow-hidden bg-[#02050e]/90 aspect-video relative">
+                {!vslStarted ? (
+                  <div 
+                    onClick={() => setVslStarted(true)}
+                    className="absolute inset-0 z-30 flex flex-col items-center justify-center cursor-pointer bg-gradient-to-br from-[#02050e] to-[#0d1e4a]/95 p-6 text-center group"
+                  >
+                    <div className="absolute inset-0 bg-grid-white opacity-[0.02] pointer-events-none" />
+                    
+                    {/* Pulsing Play Button */}
+                    <motion.div
+                      animate={{ scale: [1, 1.06, 1] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                      className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#d4af37]/10 group-hover:bg-[#d4af37]/20 text-[#d4af37] border border-[#d4af37]/30 shadow-2xl flex items-center justify-center transition-all duration-300"
+                    >
+                      <Play className="w-6 h-6 sm:w-8 sm:h-8 fill-current ml-1 text-[#f3e5ab]" />
+                    </motion.div>
+                    
+                    <h4 className="mt-5 text-[10px] sm:text-xs font-mono text-[#d4af37] uppercase tracking-[0.2em] font-bold">
+                      Apresentação Exclusiva SQUAD
+                    </h4>
+                    
+                    <h3 className="mt-2 text-sm sm:text-xl font-bold text-white max-w-md leading-snug">
+                      Clique para iniciar a apresentação da Cultura de Vendas
+                    </h3>
+                    
+                    <p className="mt-2 text-[10px] sm:text-xs text-white/50 max-w-xs font-sans">
+                      Descubra como estruturar sua máquina de vendas solar de alta performance.
+                    </p>
                   </div>
-                  <span className="text-[9px] bg-[#d4af37]/15 text-[#f3e5ab] border border-[#d4af37]/25 px-2.5 py-0.5 rounded-md font-bold tracking-widest uppercase">
-                    Aula Demonstrativa Ativa
+                ) : (
+                  <>
+                    <iframe
+                      src={vslIframeUrl}
+                      className="absolute inset-0 w-full h-full border-0"
+                      allow="autoplay; fullscreen"
+                      allowFullScreen
+                    />
+                    {/* Transparent pointer-events overlay to block pause/click on iframe */}
+                    <div className="absolute inset-0 z-20 bg-transparent pointer-events-auto" />
+                  </>
+                )}
+              </div>
+
+              {/* Custom Control Bar */}
+              <div className="mt-3 px-3 py-2 sm:px-4 sm:py-2.5 bg-black/40 rounded-xl border border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
+                {/* Time Indicator */}
+                <div className="flex items-center gap-2 text-white/55 font-mono text-[11px] sm:text-xs">
+                  <span className={`w-2 h-2 rounded-full ${vslStarted ? 'bg-emerald-500 animate-pulse' : 'bg-white/20'}`} />
+                  <span>
+                    {vslStarted ? `REPRODUZINDO: ${formatVslTime(vslTime)}` : 'PRONTO PARA REPRODUZIR'}
                   </span>
                 </div>
-
-                {/* Simulated video playback screen */}
-                <div className="relative aspect-video flex flex-col justify-between p-6 sm:p-8 overflow-hidden bg-gradient-to-br from-[#02050e] to-[#0d1e4a]/60">
-                  <div className="absolute inset-0 bg-grid-white opacity-[0.015] pointer-events-none"></div>
+                
+                {/* Controls */}
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handleVslRewind}
+                    disabled={!vslStarted}
+                    className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 disabled:opacity-50 disabled:pointer-events-none active:scale-95 text-[#f3e5ab] text-[11px] sm:text-xs font-semibold border border-white/10 transition-all cursor-pointer"
+                  >
+                    <span>⏪ Voltar 10s</span>
+                  </button>
                   
-                  {/* Subtle inner gold glow inside active slide screen */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 rounded-full bg-[#d4af37]/5 blur-3xl pointer-events-none" />
-
-                  {/* VSL Slide Title Info */}
-                  <div className="flex items-center justify-between relative z-10">
-                    <span className="px-2.5 py-0.5 rounded-md bg-[#d4af37]/10 border border-[#d4af37]/20 text-[#f3e5ab] text-[8.5px] font-mono tracking-widest uppercase font-bold">
-                      {vslSlides[vslSlideIndex].tag}
-                    </span>
-                    <span className="text-[10px] text-white/40 font-mono">
-                      FASE {vslSlideIndex + 1} de {vslSlides.length}
-                    </span>
-                  </div>
-
-                  {/* VSL Message Display */}
-                  <div className="my-auto py-3 text-center relative z-10">
-                    <AnimatePresence mode="wait">
-                      <motion.div
-                        key={vslSlideIndex}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.3 }}
-                        className="max-w-md sm:max-w-lg mx-auto"
-                      >
-                        <h2 className="text-lg sm:text-2xl font-extrabold text-white tracking-tight mb-2.5">
-                          {vslSlides[vslSlideIndex].title}
-                        </h2>
-                        <p className="text-xs sm:text-xs text-white/60 leading-relaxed font-sans max-w-sm sm:max-w-md mx-auto">
-                          {vslSlides[vslSlideIndex].subtitle}
-                        </p>
-                      </motion.div>
-                    </AnimatePresence>
-                  </div>
-
-                  {/* Player controls */}
-                  <div className="mt-auto pt-3 border-t border-white/5 flex items-center justify-between gap-4 relative z-10">
-                    <button 
-                      onClick={onToggleVsl}
-                      className="w-8 h-8 rounded-full bg-gradient-to-r from-[#f3e5ab] to-[#d4af37] text-black hover:scale-105 active:scale-95 flex items-center justify-center transition-all cursor-pointer shadow-lg"
-                    >
-                      {vslPlaying ? (
-                        <div className="flex items-center justify-center gap-0.5 w-2.5 h-2.5">
-                          <div className="w-0.5 h-2.5 bg-black"></div>
-                          <div className="w-0.5 h-2.5 bg-black"></div>
-                        </div>
-                      ) : (
-                        <Play className="w-3 h-3 fill-current ml-0.5 text-black" />
-                      )}
-                    </button>
-
-                    {/* Timeline Slider Progress */}
-                    <div className="flex-1 h-1 bg-white/10 rounded-full relative overflow-hidden cursor-pointer" onClick={(e) => {
-                      const rect = e.currentTarget.getBoundingClientRect();
-                      const pct = ((e.clientX - rect.left) / rect.width) * 100;
-                      onSetVslProgress(pct);
-                    }}>
-                      <div 
-                        className="h-full bg-gradient-to-r from-[#f3e5ab] to-[#d4af37] rounded-full absolute left-0 top-0 transition-all duration-200" 
-                        style={{ width: `${vslProgress}%` }}
-                      ></div>
-                    </div>
-
-                    <span className="text-[9px] text-white/40 font-mono shrink-0">
-                      {vslPlaying ? 'TRANSMITINDO APRESENTAÇÃO...' : 'PAUSADO'}
-                    </span>
-                  </div>
-
-                  {/* Non Playing Cover Overlay */}
-                  {!vslPlaying && (
-                    <div className="absolute inset-0 bg-[#02050e]/90 backdrop-blur-[1px] flex flex-col items-center justify-center p-6 text-center z-20 transition-all duration-300">
-                      <button 
-                        onClick={onToggleVsl}
-                        className="w-14 h-14 rounded-full bg-[#d4af37]/10 hover:bg-[#d4af37]/20 text-[#d4af37] border border-[#d4af37]/35 shadow-2xl flex items-center justify-center cursor-pointer hover:scale-105 transition-all"
-                      >
-                        <Play className="w-5 h-5 fill-current ml-0.5 text-[#f3e5ab]" />
-                      </button>
-                      <h4 className="mt-4 text-[9px] font-mono text-[#d4af37] uppercase tracking-widest font-bold">
-                        Aula Demonstrativa Ativa
-                      </h4>
-                      <h3 className="mt-1 text-sm sm:text-base font-bold text-white max-w-sm">
-                        Como vender energia solar de alto valor através de método e comunicação
-                      </h3>
-                    </div>
-                  )}
-
+                  <button
+                    onClick={handleVslRestart}
+                    disabled={!vslStarted}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-[#d4af37]/10 disabled:opacity-50 disabled:pointer-events-none active:scale-95 text-white/80 hover:text-white text-[11px] sm:text-xs font-semibold border border-white/10 hover:border-[#d4af37]/20 transition-all cursor-pointer"
+                  >
+                    <span>🔄 Recomeçar</span>
+                  </button>
                 </div>
-
-                {/* Interactive note footer */}
-                <div className="p-3.5 bg-white/[0.01] border-t border-white/5 text-center text-xs text-white/50 font-sans">
-                  <span className="text-[#d4af37] font-semibold">Assista um trecho real de uma aula do Squad —</span> clique para navegar pelos módulos.
-                </div>
-
               </div>
             </motion.div>
 
