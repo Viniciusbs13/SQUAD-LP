@@ -23,7 +23,9 @@ import {
   Filter,
   Activity,
   ArrowDown,
-  Rocket
+  Rocket,
+  Tv,
+  Users
 } from 'lucide-react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { PainPoint, MethodPillar, TimelineStep, BenefitItem, FAQItem, SuccessCase } from '../types';
@@ -65,15 +67,15 @@ interface VideoCase {
 const VIDEO_CASES: VideoCase[] = [
   {
     id: 'case-vid-1',
-    thumbnail: 'https://lh3.googleusercontent.com/d/1nU4fQ4H7wl1uSCNtcf9_TDaWQiGiSavw',
-    videoUrl: 'https://drive.google.com/file/d/1nU4fQ4H7wl1uSCNtcf9_TDaWQiGiSavw/preview',
-    caption: 'Milton Oliveira - "O time aplicou o script e já fechou dois sistemas logo na segunda semana"',
+    thumbnail: 'https://lh3.googleusercontent.com/d/120cVM-ig-ICR7osy79FJyoSfIUOeercR',
+    videoUrl: 'https://drive.google.com/file/d/120cVM-ig-ICR7osy79FJyoSfIUOeercR/preview',
+    caption: '',
   },
   {
     id: 'case-vid-2',
-    thumbnail: 'https://lh3.googleusercontent.com/d/1euSAX3LTUec_-grr_dYPC67SOhvM0uAG',
-    videoUrl: 'https://drive.google.com/file/d/1euSAX3LTUec_-grr_dYPC67SOhvM0uAG/preview',
-    caption: 'Integrador Parceiro - "Depois do Squad a gente parou de perder venda pra concorrência por preço"',
+    thumbnail: 'https://lh3.googleusercontent.com/d/1C-OhEMWfvljOOE6ezov3SqOqaufa0Qyw',
+    videoUrl: 'https://drive.google.com/file/d/1C-OhEMWfvljOOE6ezov3SqOqaufa0Qyw/preview',
+    caption: '',
   },
 ];
 
@@ -217,16 +219,16 @@ export default function EnterprisePortal({
       id: 1,
       number: "01",
       category: "Barra de Qualificação",
-      title: "Qualificamos quem realmente está pronto para crescer.",
-      description: "Antes mesmo de apresentar a solução, filtramos quem faz sentido para o método, garantindo que o tempo de ambas as partes seja investido com máxima eficiência.",
+      title: "Seu time perde vendas quando o cliente diz: “Está caro”?",
+      description: "Aprenda técnicas práticas para contornar objeções de preço, conduzir melhor a negociação e aumentar a taxa de fechamento no mercado solar.",
       imageUrl: "https://lh3.googleusercontent.com/d/1v4sLBr_QPMStN_z2gXaV0K6Zyr2Dv_3I",
     },
     {
       id: 2,
       number: "02",
       category: "Hero",
-      title: "A promessa que muda a direção do negócio.",
-      description: "Explicamos com clareza matemática e autoridade inquestionável o retorno esperado, despertando o interesse dos decisores nos primeiros segundos de contato.",
+      title: "Por que seu vendedor não mantém resultado todos os meses?",
+      description: "Vender energia solar não é sorte, é processo. Com uma taxa média de conversão de 10% no mercado solar, vamos mostrar o passo a passo para seu time gerar previsibilidade, aumentar as vendas e manter o faturamento mês após mês.",
       imageUrl: "https://lh3.googleusercontent.com/d/1gIZXfx3VANdE-UdUO__g71XDoiXtU-5A",
     },
     {
@@ -234,7 +236,7 @@ export default function EnterprisePortal({
       number: "03",
       category: "Prova Social",
       title: "Resultados que eliminam qualquer dúvida.",
-      description: "Mostramos de forma visual dashboards integrados, capturas de reuniões estratégicas e relatórios auditados. Confiança sólida é construída estritamente com dados reais.",
+      description: "A nossa imersão comercial Destrava é a prova de que é possível alcançar o resultado. Fizemos mais de 6 milhões de reais em uma única tarde.",
       imageUrl: "https://lh3.googleusercontent.com/d/14bp1MClIryieRiwQY8ENO7Ywx_4ZcFxc",
     },
     {
@@ -242,7 +244,7 @@ export default function EnterprisePortal({
       number: "04",
       category: "As dores",
       title: "Entendemos o problema antes de apresentar a solução.",
-      description: "Mapeamos com precisão as ineficiências operacionais comuns enfrentadas por empresários de alto nível, criando identificação e alinhamento imediatos.",
+      description: "Temos mapeadas todas as objeções dos clientes de norte a sul do país. Tudo com muito prática zero mimimi.",
       imageUrl: "https://lh3.googleusercontent.com/d/1qpJIRfsUq_kp-VBrOyb4CL_FAZsPkJpr",
     },
     {
@@ -250,7 +252,7 @@ export default function EnterprisePortal({
       number: "05",
       category: "Ecossistema",
       title: "Temos eventos presenciais e um ecossistema de vendas completo.",
-      description: "Rompemos com o formato tradicional. Criamos um ecossistema vivo que une treinamentos semanais, eventos presenciais exclusivos de alto impacto e ferramentas práticas projetadas unicamente para acelerar o faturamento de integradores de energia solar.",
+      description: "A cultura de vendas é muito mais que um treinamento, é uma comunidade, onde vendedores falam a mesma linguagem e são entendidos e acolhidos com suas dificuldades cotidianas.",
       imageUrl: "https://lh3.googleusercontent.com/d/1ww2mqSWtKC0RwMG9DGT6ayoAx_49fHPA",
     }
   ];
@@ -353,16 +355,16 @@ export default function EnterprisePortal({
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
               className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-extrabold text-white mb-6 text-center leading-[1.15] tracking-tight"
             >
-              Vendedor de energia solar não perde negócio por falta de sol. Perde por falta de <span className="text-gold text-glow-gold font-normal italic">método</span>.
+              Vendedor de energia solar não perde venda por falta de lead, perde venda por falta de <span className="text-gold text-glow-gold font-normal italic">método</span>.
             </motion.h1>
             
             <motion.p 
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-sm sm:text-base text-white/70 mb-8 max-w-2xl mx-auto leading-relaxed font-sans text-center"
+              className="text-sm sm:text-base md:text-lg font-semibold text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed font-sans text-center px-2"
             >
-              Squad é a formação mensal de vendas e comunicação criada pra quem vive do setor solar: treinamento ao vivo toda semana, scripts prontos pras objeções do seu cliente e uma comunidade fechada de integradores que já fecha alto ticket todo mês.
+              O SQUAD é a única escola de vendedores do mercado solar focada exclusivamente em vendas.
             </motion.p>
 
             <motion.div 
@@ -525,6 +527,36 @@ export default function EnterprisePortal({
 
               </div>
             </motion.div>
+
+            {/* Os 3 Pilares do SQUAD abaixo do vídeo */}
+            <div className="mt-8 md:mt-10 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 relative z-10 w-full text-left">
+              <div className="p-4 sm:p-5 rounded-2xl bg-white/[0.02] border border-white/5 backdrop-blur-[6px] hover:border-[#d4af37]/20 transition-all duration-300">
+                <div className="w-8 h-8 rounded-lg bg-[#d4af37]/10 flex items-center justify-center mb-3">
+                  <Calendar className="w-4 h-4 text-[#d4af37]" />
+                </div>
+                <p className="text-white/85 text-[11px] sm:text-xs md:text-sm leading-relaxed font-sans">
+                  Todas as quartas-feiras, você participa de treinamentos práticos, com técnicas e scripts validados em mais de 160 empresas do setor solar.
+                </p>
+              </div>
+
+              <div className="p-4 sm:p-5 rounded-2xl bg-white/[0.02] border border-white/5 backdrop-blur-[6px] hover:border-[#d4af37]/20 transition-all duration-300">
+                <div className="w-8 h-8 rounded-lg bg-[#d4af37]/10 flex items-center justify-center mb-3">
+                  <Tv className="w-4 h-4 text-[#d4af37]" />
+                </div>
+                <p className="text-white/85 text-[11px] sm:text-xs md:text-sm leading-relaxed font-sans">
+                  Além dos encontros ao vivo, o SQUAD oferece suporte por meio de uma plataforma comercial exclusiva, com um treinamento completo de vendas desenvolvido especialmente para vendedores do mercado solar.
+                </p>
+              </div>
+
+              <div className="p-4 sm:p-5 rounded-2xl bg-white/[0.02] border border-white/5 backdrop-blur-[6px] hover:border-[#d4af37]/20 transition-all duration-300">
+                <div className="w-8 h-8 rounded-lg bg-[#d4af37]/10 flex items-center justify-center mb-3">
+                  <Users className="w-4 h-4 text-[#d4af37]" />
+                </div>
+                <p className="text-white/85 text-[11px] sm:text-xs md:text-sm leading-relaxed font-sans">
+                  Você também faz parte de um grupo exclusivo de networking, conectando-se com vendedores de todo o Brasil, trocando experiências, estratégias e oportunidades de crescimento.
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Elegant buttons below the video that only appear after 5s */}
@@ -719,11 +751,12 @@ export default function EnterprisePortal({
             <span className="inline-flex items-center rounded-md bg-[#d4af37]/10 border border-[#d4af37]/20 px-3 py-1 font-mono text-[9px] font-bold text-[#d4af37] uppercase tracking-[0.2em] mb-6">
               Como tudo acontece
             </span>
-            <h2 className="text-3xl sm:text-7xl lg:text-8xl font-black text-white tracking-tight leading-none uppercase font-sans">
-              NOSSO <span className="font-serif italic text-glow-gold text-[#f3e5ab] lowercase font-normal tracking-wide inline-block">Método</span>
+            <h2 className="text-3xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-none uppercase font-sans">
+              Engenharia da venda
             </h2>
             <p className="text-[11px] sm:text-sm text-white/40 leading-relaxed font-sans max-w-xl mx-auto mt-4 sm:mt-6">
-              Do primeiro clique de captação até a assinatura do contrato. Uma jornada cinematográfica pelos bastidores do nosso processo de alto nível.
+              Aqui você aprende que venda não é dom, e sim método, técnica e prática. <br className="hidden sm:inline" />
+              Nós te ensinamos com conduzir seu cliente até o sim, de forma estratégica.
             </p>
           </div>
 
@@ -936,7 +969,7 @@ export default function EnterprisePortal({
             >
               <span className="w-2 h-2 rounded-full bg-[#d4af37] animate-pulse" />
               <span className="text-white/80 font-mono text-[10px] sm:text-[11px] uppercase tracking-widest">
-                R$ 48M+ em faturamento documentado
+                Nossos clientes já faturaram mais de 600 milhões de reais
               </span>
             </motion.div>
           </motion.div>
@@ -958,9 +991,7 @@ export default function EnterprisePortal({
             </h2>
 
             <p className="text-xs sm:text-base text-white/60 leading-relaxed max-w-xl mx-auto lg:mx-0 mb-6 sm:mb-8">
-              Mais de <strong className="text-white/85 font-semibold">8 anos</strong> treinando times comerciais do setor solar,
-              mais de <strong className="text-white/85 font-semibold">R$ 48M</strong> em faturamento documentado por integradores que
-              aplicaram o método — organizado nos três pilares que sustentam o Squad: estratégico, tático e operacional.
+              Tanto sucesso não acontece por acaso, a fundadora da cultura de vendas Luciane Morais, está atuando exclusivamente em vendas no mercado solar desde 2018. Atendemos mais de 400 empresas em todo país, e já treinamos mais de 1000 vendedores.
             </p>
 
             {/* Pilares como chips horizontais */}
@@ -1199,13 +1230,6 @@ export default function EnterprisePortal({
                         <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-[#f3e5ab] via-[#d4af37] to-[#9a7b1c] flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300">
                            <Play className="w-6 h-6 sm:w-7 sm:h-7 text-black fill-black ml-1" />
                         </div>
-                      </div>
-
-                      {/* Legenda/quote */}
-                      <div className="absolute bottom-0 inset-x-0 p-5">
-                        <p className="text-white/90 text-xs sm:text-sm font-medium leading-snug text-center">
-                          {v.caption}
-                        </p>
                       </div>
                     </>
                   )}

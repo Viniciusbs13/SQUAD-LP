@@ -42,9 +42,9 @@ export const METHOD_PILLARS: MethodPillar[] = [
   {
     id: 'pillar-2',
     icon: 'Filter',
-    name: 'Scripts Prontos Pro Nicho Solar',
-    explanation: 'Scripts de abordagem, quebra de objeção (payback, financiamento, concorrência) e fechamento, feitos especificamente pra venda de sistema solar — não é script genérico de curso de vendas.',
-    benefit: 'Seu time para de improvisar e passa a seguir um roteiro testado.'
+    name: 'Plataforma de Treinamento',
+    explanation: 'Você não precisa se preocupar com treinamentos para vendedores novatos.',
+    benefit: 'Acelere o onboarding de novos comerciais sem drenar seu tempo.'
   },
   {
     id: 'pillar-3',
@@ -126,40 +126,40 @@ export const SUCCESS_CASES: SuccessCase[] = [
   {
     id: 'case-img-1',
     type: 'image',
-    clientName: 'Carlos Eduardo',
-    niche: 'Integrador Solar RS',
-    metric: 'R$ 85.000 Fechados',
-    title: 'Fechamento rápido com script do Squad',
+    clientName: 'Alessandra R Cunha',
+    niche: 'Piauí',
+    metric: 'R$ 600k/mês',
+    title: 'Saiu de um faturamento mensal de 300.000 para mais de 600.000 ao mês',
     content: 'Integrador aplicando o roteiro de objeção de preço e fechando o projeto sem dar descontos adicionais.',
     imageUrl: 'https://lh3.googleusercontent.com/d/14bp1MClIryieRiwQY8ENO7Ywx_4ZcFxc'
   },
   {
     id: 'case-img-2',
     type: 'image',
-    clientName: 'Fernanda Lima',
-    niche: 'Lumina Solar',
-    metric: '+R$ 114k em Contratos',
-    title: 'Duas propostas aceitas na mesma semana',
+    clientName: 'Wellinton Braspower',
+    niche: 'Goiás',
+    metric: 'Constante',
+    title: 'Saiu de um faturamento médio de 700.000/mes resultado constante',
     content: 'Seguindo as estratégias de prospecção ativa e abordagem comercial de alto ticket.',
     imageUrl: 'https://lh3.googleusercontent.com/d/1qatlOo2afudUc18RvbZOiPHEPBb0GPF4'
   },
   {
     id: 'case-img-3',
     type: 'image',
-    clientName: 'Ronaldo Silva',
-    niche: 'Ronaldo Energia Solar',
-    metric: 'Fechamento em 24h',
-    title: 'Cliente fechou sem objeção de valor',
+    clientName: 'Raimundo',
+    niche: 'GDX',
+    metric: '15 dias',
+    title: 'Mais de 100,000 em apenas 15 dias de processo',
     content: 'Utilizando a neurocomunicação e ancoragem de benefícios ensinada nos nossos treinamentos semanais.',
     imageUrl: 'https://lh3.googleusercontent.com/d/1EpKFzyxKdrKq7ykuQiGfDtOmtul-BubD'
   },
   {
     id: 'case-img-4',
     type: 'image',
-    clientName: 'Roberto Alves',
-    niche: 'Alves Solar',
-    metric: 'Recorde de Faturamento',
-    title: 'Faturamento de R$ 320k no mês',
+    clientName: 'Gabriel Sansol',
+    niche: 'Belém',
+    metric: 'R$ 20M+ Faturados',
+    title: 'Mais de 20 milhões faturados.',
     content: 'Aceleração de resultados e qualificação da equipe comercial de vendas com o método Cultura de Vendas.',
     imageUrl: 'https://lh3.googleusercontent.com/d/1DL3QiGcKV8k8AhRfPnl-UR34Q4VMCvqK'
   }
