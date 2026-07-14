@@ -61,7 +61,7 @@ export default function LeadGateway({ onUnlock }: LeadGatewayProps) {
     };
 
     // Disparar o envio via POST JSON com mode: 'no-cors' sem bloquear o fluxo do usuário
-    fetch("https://script.google.com/macros/s/AKfycbzQ2JTfLCQZdhGHAHyRhvMskYst_EuekGdU_N6SKlTY9UMzJJXtjlUtokgbul11Jr0x/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbw2Owujn4GZtU3ZDeESD9w4IL9otYGpv7mlshVNDc4dVzQCoinzHhRmmDLwJNXX9dXQ/exec", {
       method: "POST",
       mode: "no-cors",
       headers: {
