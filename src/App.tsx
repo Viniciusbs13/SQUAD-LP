@@ -7,21 +7,12 @@ import { PAIN_POINTS, METHOD_PILLARS, TIMELINE_STEPS, BENEFITS, SUCCESS_CASES, F
 
 // Component imports
 import EnterprisePortal from './components/EnterprisePortal';
-import LeadQualificationModal from './components/LeadQualificationModal';
+import LeadGateway from './components/LeadGateway';
 
 export default function App() {
   // --- STATES ---
-  const [isQualifyModalOpen, setIsQualifyModalOpen] = useState(false);
-  const [qualifyStep, setQualifyStep] = useState(1);
-  const [qualifyAnswers, setQualifyAnswers] = useState({
-    nome: '',
-    empresa: '',
-    niche: '',
-    revenue: '',
-    teamSize: '',
-    whatsapp: '',
-    email: '',
-    site: ''
+  const [isUnlocked, setIsUnlocked] = useState(() => {
+    return localStorage.getItem('squad_unlocked') === 'true';
   });
   
   const [sliderVal, setSliderVal] = useState(65); 
@@ -118,10 +109,6 @@ export default function App() {
     }
   }, [vslUnlocked]);
 
-  const handleFinalSchedulingSubmit = () => {
-    setQualifyStep(5);
-  };
-
   const toggleFaq = (id: string) => {
     setOpenFaqId(prev => prev === id ? null : id);
   };
@@ -134,6 +121,32 @@ export default function App() {
     animationDuration: `${12 + Math.random() * 12}s`,
     opacity: 0.2 + Math.random() * 0.4
   }));
+
+  // Gating screen handling
+  if (!isUnlocked) {
+    return (
+      <div className="relative min-h-screen bg-[#02050e] text-white font-sans overflow-x-hidden selection:bg-[#d4af37] selection:text-black">
+        {/* Dynamic Floating Golden Particles Overlay */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
+          {particles.map((p) => (
+            <div
+              key={p.id}
+              className="particle"
+              style={{
+                left: p.left,
+                animation: `floatUp ${p.animationDuration} linear infinite`,
+                animationDelay: p.animationDelay,
+                opacity: p.opacity,
+              }}
+            />
+          ))}
+        </div>
+        <div className="relative z-10">
+          <LeadGateway onUnlock={() => setIsUnlocked(true)} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative min-h-screen bg-[#02050e] text-white font-sans overflow-x-hidden selection:bg-[#d4af37] selection:text-black">
@@ -158,8 +171,8 @@ export default function App() {
       <div className="relative z-10">
         <EnterprisePortal
           onOpenQualifyModal={() => {
-            setQualifyStep(1);
-            setIsQualifyModalOpen(true);
+            // Direct Kiwify Checkout URL redirection
+            window.location.href = "https://pay.kiwify.com.br/0SuI59E";
           }}
           sliderVal={sliderVal}
           onSliderChange={setSliderVal}
@@ -191,26 +204,18 @@ export default function App() {
         />
       </div>
 
-      {/* ==================== LANDING PAGE WIZARD QUALIFY MODAL ==================== */}
-      <LeadQualificationModal
-        isOpen={isQualifyModalOpen}
-        onClose={() => setIsQualifyModalOpen(false)}
-        qualifyStep={qualifyStep}
-        onSetQualifyStep={setQualifyStep}
-        qualifyAnswers={qualifyAnswers}
-        onSetQualifyAnswers={setQualifyAnswers}
-        selectedDate={selectedDate}
-        onSetSelectedDate={setSelectedDate}
-        selectedTime={selectedTime}
-        onSetSelectedTime={setSelectedTime}
-        onSubmitLead={handleFinalSchedulingSubmit}
-        onViewDashboard={() => {
-          setIsQualifyModalOpen(false);
-          // Simple graceful callback - open WhatsApp instead of SaaS dashboard
-          const whatsappMsg = `Olá, quero garantir minha vaga no Squad da Cultura de Vendas. Meu nome é ${qualifyAnswers.nome} da empresa ${qualifyAnswers.empresa}. Gostaria de confirmar minha inscrição para o horário ${selectedDate} às ${selectedTime}.`;
-          window.open(`https://wa.me/5511999999999?text=${encodeURIComponent(whatsappMsg)}`, '_blank');
-        }}
-      />
+      {/* Subtle Reset Link in Footer style to re-gate for testing */}
+      <div className="absolute bottom-4 left-4 z-50 opacity-20 hover:opacity-100 transition-opacity">
+        <button
+          onClick={() => {
+            localStorage.removeItem('squad_unlocked');
+            setIsUnlocked(false);
+          }}
+          className="text-[10px] font-mono text-[#d4af37] border border-[#d4af37]/30 bg-black/40 px-2 py-1 rounded cursor-pointer"
+        >
+          [Dev Reset Gate]
+        </button>
+      </div>
 
     </div>
   );

@@ -840,7 +840,7 @@ export default function EnterprisePortal({
               onClick={onOpenQualifyModal}
               className="px-5 py-3 sm:px-10 sm:py-5 bg-gradient-to-r from-[#f3e5ab] via-[#d4af37] to-[#9a7b1c] text-black font-extrabold rounded-xl gold-glow-btn text-[11px] sm:text-xs uppercase tracking-widest cursor-pointer border border-[#f3e5ab]/20 transform hover:scale-[1.03] active:scale-95 transition-all duration-300 inline-flex items-center gap-2.5"
             >
-              Simular Protocolo de Entrada
+              Quero Garantir Minha Vaga no SQUAD
               <ArrowRight className="w-4 h-4 text-black" />
             </button>
           </div>
@@ -1309,11 +1309,37 @@ export default function EnterprisePortal({
           <p className="text-[11px] sm:text-sm text-white/60 mb-8 max-w-md mx-auto leading-relaxed font-sans">
             Garanta seu acesso à nossa formação semanal de vendas, scripts exclusivos e comunidade de integradores solares.
           </p>
+
+          {/* Beautiful Dual Pricing Display */}
+          <div className="mb-8 max-w-md mx-auto p-6 rounded-2xl bg-white/[0.02] border border-[#d4af37]/20 backdrop-blur-md">
+            <span className="inline-block bg-[#d4af37]/10 text-[#f3e5ab] text-[9px] font-mono font-bold px-2.5 py-1 rounded-full uppercase tracking-wider mb-4 animate-pulse">
+              OFERTA DE LANÇAMENTO — TEMPO ILIMITADO
+            </span>
+            <div className="flex justify-center items-center gap-4">
+              <div className="text-left">
+                <p className="text-[10px] font-mono text-white/40 uppercase tracking-wider">Preço Normal</p>
+                <p className="text-base sm:text-lg text-white/40 line-through font-extrabold">R$ 597,90<span className="text-xs font-normal">/mês</span></p>
+              </div>
+              <div className="h-8 w-[1px] bg-white/10" />
+              <div className="text-left">
+                <p className="text-[10px] font-mono text-[#d4af37] uppercase tracking-wider font-bold">Hoje por Apenas</p>
+                <p className="text-2xl sm:text-3xl text-white font-black text-glow-gold flex items-baseline gap-1">
+                  <span className="text-[#f3e5ab]">R$ 247,90</span>
+                  <span className="text-xs text-white/60 font-medium">/mês</span>
+                </p>
+              </div>
+            </div>
+            <p className="text-[10px] text-white/40 mt-3 font-sans">
+              * Acesso completo à formação semanal, gravações, comunidade exclusiva e scripts solares. Cancele quando quiser.
+            </p>
+          </div>
+
           <button
             onClick={onOpenQualifyModal}
-            className="px-6 py-3.5 sm:px-8 sm:py-4 bg-gradient-to-r from-[#f3e5ab] via-[#d4af37] to-[#9a7b1c] text-black font-bold rounded-xl gold-glow-btn text-xs sm:text-sm uppercase tracking-wider cursor-pointer border border-[#f3e5ab]/20"
+            className="px-6 py-4 sm:px-10 sm:py-5 bg-gradient-to-r from-[#f3e5ab] via-[#d4af37] to-[#9a7b1c] text-black font-extrabold rounded-xl gold-glow-btn text-xs sm:text-sm uppercase tracking-widest cursor-pointer border border-[#f3e5ab]/20 transform hover:scale-[1.03] transition-all duration-300 inline-flex items-center gap-2"
           >
-            Garantir Minha Vaga — R$247/mês
+            Quero Garantir Minha Vaga com Desconto
+            <ArrowRight className="w-4 h-4 text-black" />
           </button>
           
           <div className="mt-8 flex flex-wrap justify-center items-center gap-6 text-[10px] font-mono text-white/40">

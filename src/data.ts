@@ -179,7 +179,7 @@ export const FAQS: FAQItem[] = [
   {
     id: 'faq-3',
     question: 'Posso cancelar quando quiser?',
-    answer: 'Sim. É uma assinatura mensal de R$247 — sem fidelidade. Você paga mês a mês e cancela quando quiser, sem burocracia.'
+    answer: 'Sim. É uma assinatura mensal de R$247,90 (com preço promocional ativo de R$597,90 por R$247,90) — sem fidelidade. Você paga mês a mês e cancela quando quiser, sem burocracia.'
   },
   {
     id: 'faq-4',
