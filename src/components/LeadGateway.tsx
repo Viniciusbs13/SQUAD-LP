@@ -55,10 +55,16 @@ export default function LeadGateway({ onUnlock }: LeadGatewayProps) {
     const payload = {
       nome: nome.trim(),
       whatsapp: whatsapp.trim(),
+      telefone: whatsapp.trim(), // Adicionado para compatibilidade redundante
+      phone: whatsapp.trim(),    // Adicionado para compatibilidade redundante
+      tel: whatsapp.trim(),      // Adicionado para compatibilidade redundante
       email: email.trim(),
       instagram: instagram.trim(),
       timestamp: new Date().toISOString()
     };
+
+    // Log para fins de debug das informações enviadas no payload
+    console.log("Lead payload:", payload);
 
     // Disparar o envio via POST JSON com mode: 'no-cors' sem bloquear o fluxo do usuário
     fetch("https://script.google.com/macros/s/AKfycbw-X_YGcidCH0sooxW9hVhrOVgcoE0wMMcIuaippNrcX4lHSb8rz2QXKlQ5tGLdfGmi/exec", {
