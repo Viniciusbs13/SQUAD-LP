@@ -1314,22 +1314,23 @@ export default function EnterprisePortal({
             <span className="inline-block bg-[#d4af37]/10 text-[#f3e5ab] text-[9px] font-mono font-bold px-2.5 py-1 rounded-full uppercase tracking-wider mb-4 animate-pulse">
               OFERTA EXCLUSIVA — TEMPO ILIMITADO
             </span>
-            <div className="flex justify-center items-center gap-4">
-              <div className="text-left">
-                <p className="text-[10px] font-mono text-white/40 uppercase tracking-wider">Preço Normal</p>
-                <p className="text-base sm:text-lg text-white/40 line-through font-extrabold">R$ 897,90<span className="text-xs font-normal">/mês</span></p>
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+              <div className="text-center sm:text-left">
+                <p className="text-[10px] font-mono text-white/40 uppercase tracking-wider">Acesso 30 dias — Preço Normal</p>
+                <p className="text-base sm:text-lg text-white/40 line-through font-extrabold">R$ 897,90</p>
               </div>
-              <div className="h-8 w-[1px] bg-white/10" />
-              <div className="text-left">
+              <div className="hidden sm:block h-8 w-[1px] bg-white/10" />
+              <div className="text-center sm:text-left">
                 <p className="text-[10px] font-mono text-[#d4af37] uppercase tracking-wider font-bold">Hoje por Apenas</p>
-                <p className="text-2xl sm:text-3xl text-white font-black text-glow-gold flex items-baseline gap-1">
-                  <span className="text-[#f3e5ab]">R$ 347,90</span>
-                  <span className="text-xs text-white/60 font-medium">/mês</span>
+                <p className="text-center sm:text-left text-glow-gold">
+                  <span className="text-white text-sm sm:text-base font-bold mr-1.5">12x de</span>
+                  <span className="text-2xl sm:text-3xl font-black text-[#f3e5ab]">R$ 35,98</span>
                 </p>
+                <p className="text-[11px] text-white/70 font-semibold mt-0.5">ou R$ 347,90 à vista no boleto ou PIX</p>
               </div>
             </div>
-            <p className="text-[10px] text-white/40 mt-3 font-sans">
-              * Acesso completo à formação semanal, gravações, comunidade exclusiva e scripts solares. Cancele quando quiser.
+            <p className="text-[10px] text-white/40 mt-4 font-sans">
+              * Acesso completo por 30 dias à formação semanal, gravações, comunidade exclusiva e scripts solares.
             </p>
           </div>
 

@@ -131,18 +131,21 @@ export default function LeadQualificationModal({
               {/* Pricing Callout Box */}
               <div className="mb-6 p-4 rounded-xl bg-white/[0.02] border border-[#d4af37]/15 flex items-center justify-between gap-4">
                 <div>
-                  <p className="text-[9px] font-mono text-white/40 uppercase tracking-wider">Assinatura Mensal Comercial</p>
-                  <p className="text-xs text-white/40 line-through mt-0.5">Era R$ 897,90/mês</p>
-                  <div className="flex items-baseline gap-1 mt-0.5">
-                    <span className="text-lg sm:text-2xl font-black text-[#f3e5ab] text-glow-gold">R$ 347,90</span>
-                    <span className="text-[10px] text-white/60 font-medium">/mês</span>
+                  <p className="text-[9px] font-mono text-white/40 uppercase tracking-wider">Acesso de 30 dias — Comercial</p>
+                  <p className="text-xs text-white/40 line-through mt-0.5">Era R$ 897,90</p>
+                  <div className="flex flex-col mt-0.5">
+                    <div>
+                      <span className="text-[11px] text-white font-semibold mr-1">12x de</span>
+                      <span className="text-lg sm:text-2xl font-black text-[#f3e5ab] text-glow-gold">R$ 35,98</span>
+                    </div>
+                    <span className="text-[10px] text-white/60 font-medium mt-0.5">ou R$ 347,90 à vista</span>
                   </div>
                 </div>
                 <div className="text-right">
                   <span className="inline-block bg-[#d4af37]/15 border border-[#d4af37]/30 text-[#f3e5ab] text-[9px] font-mono font-bold px-2 py-1 rounded-full uppercase tracking-wider animate-pulse">
                     Tempo Ilimitado
                   </span>
-                  <p className="text-[9px] text-white/40 mt-1.5 font-sans">Sem fidelidade ou multas</p>
+                  <p className="text-[9px] text-white/40 mt-1.5 font-sans">Acesso garantido de 30 dias</p>
                 </div>
               </div>
 

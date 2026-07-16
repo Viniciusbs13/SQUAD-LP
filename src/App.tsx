@@ -53,7 +53,7 @@ export default function App() {
     },
     {
       title: "SEU PRÓXIMO PASSO: GARANTA SUA VAGA NO SQUAD",
-      subtitle: "Por R$347,90/mês você entra na formação, pega os scripts e entra na comunidade. Clique abaixo e comece ainda essa semana.",
+      subtitle: "Por apenas R$347,90 ou 12x de R$35,98 no cartão, você garante seu acesso de 30 dias à formação, pega os scripts e entra na comunidade. Clique abaixo e comece ainda essa semana.",
       tag: "CHAMADA PARA AÇÃO"
     }
   ];

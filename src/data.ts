@@ -178,8 +178,8 @@ export const FAQS: FAQItem[] = [
   },
   {
     id: 'faq-3',
-    question: 'Posso cancelar quando quiser?',
-    answer: 'Sim. É uma assinatura mensal de R$347,90 (com preço promocional ativo de R$897,90 por R$347,90) — sem fidelidade. Você paga mês a mês e cancela quando quiser, sem burocracia.'
+    question: 'Como funciona o acesso e as formas de pagamento?',
+    answer: 'O acesso à formação, scripts e comunidade é garantido por 30 dias. O valor promocional é de R$ 347,90 à vista (com o preço normal de R$ 897,90), podendo ser parcelado no cartão de crédito em até 12x de R$ 35,98.'
   },
   {
     id: 'faq-4',
