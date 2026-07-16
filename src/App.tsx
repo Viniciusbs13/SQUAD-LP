@@ -53,7 +53,7 @@ export default function App() {
     },
     {
       title: "SEU PRÓXIMO PASSO: GARANTA SUA VAGA NO SQUAD",
-      subtitle: "Por R$247/mês você entra na formação, pega os scripts e entra na comunidade. Clique abaixo e comece ainda essa semana.",
+      subtitle: "Por R$347,90/mês você entra na formação, pega os scripts e entra na comunidade. Clique abaixo e comece ainda essa semana.",
       tag: "CHAMADA PARA AÇÃO"
     }
   ];
@@ -172,7 +172,7 @@ export default function App() {
         <EnterprisePortal
           onOpenQualifyModal={() => {
             // Direct Kiwify Checkout URL redirection
-            window.location.href = "https://pay.kiwify.com.br/0SuI59E";
+            window.location.href = "https://pay.kiwify.com.br/TxNzTKc";
           }}
           sliderVal={sliderVal}
           onSliderChange={setSliderVal}

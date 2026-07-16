@@ -114,7 +114,7 @@ export default function EnterprisePortal({
   // Custom states for unpausable VSL player
   const [vslStarted, setVslStarted] = useState(true);
   const [vslTime, setVslTime] = useState(0);
-  const [vslIframeUrl, setVslIframeUrl] = useState("https://drive.google.com/file/d/1rj8heUbHlKdQ_noQFgM4bEpfgT4gb-BZ/preview?autoplay=1");
+  const [vslIframeUrl, setVslIframeUrl] = useState("https://drive.google.com/file/d/14nKk_RISWW-PHuQPJpgj3-4qrgfCOv7_/preview?autoplay=1&loop=1&playlist=14nKk_RISWW-PHuQPJpgj3-4qrgfCOv7_");
 
   useEffect(() => {
     if (!vslStarted) return;
@@ -127,12 +127,12 @@ export default function EnterprisePortal({
   const handleVslRewind = () => {
     const newTime = Math.max(0, vslTime - 10);
     setVslTime(newTime);
-    setVslIframeUrl(`https://drive.google.com/file/d/1rj8heUbHlKdQ_noQFgM4bEpfgT4gb-BZ/preview?autoplay=1&t=${newTime}s&start=${newTime}`);
+    setVslIframeUrl(`https://drive.google.com/file/d/14nKk_RISWW-PHuQPJpgj3-4qrgfCOv7_/preview?autoplay=1&loop=1&playlist=14nKk_RISWW-PHuQPJpgj3-4qrgfCOv7_&t=${newTime}s&start=${newTime}`);
   };
 
   const handleVslRestart = () => {
     setVslTime(0);
-    setVslIframeUrl(`https://drive.google.com/file/d/1rj8heUbHlKdQ_noQFgM4bEpfgT4gb-BZ/preview?autoplay=1&t=0s&start=0`);
+    setVslIframeUrl(`https://drive.google.com/file/d/14nKk_RISWW-PHuQPJpgj3-4qrgfCOv7_/preview?autoplay=1&loop=1&playlist=14nKk_RISWW-PHuQPJpgj3-4qrgfCOv7_&t=0s&start=0`);
   };
 
   const formatVslTime = (totalSeconds: number) => {
@@ -480,9 +480,8 @@ export default function EnterprisePortal({
                       className="absolute inset-0 w-full h-full border-0"
                       allow="autoplay; fullscreen"
                       allowFullScreen
+                      sandbox="allow-scripts allow-same-origin allow-presentation"
                     />
-                    {/* Transparent pointer-events overlay to block pause/click on iframe */}
-                    <div className="absolute inset-0 z-20 bg-transparent pointer-events-auto" />
                   </>
                 )}
               </div>
@@ -1313,18 +1312,18 @@ export default function EnterprisePortal({
           {/* Beautiful Dual Pricing Display */}
           <div className="mb-8 max-w-md mx-auto p-6 rounded-2xl bg-white/[0.02] border border-[#d4af37]/20 backdrop-blur-md">
             <span className="inline-block bg-[#d4af37]/10 text-[#f3e5ab] text-[9px] font-mono font-bold px-2.5 py-1 rounded-full uppercase tracking-wider mb-4 animate-pulse">
-              OFERTA DE LANÇAMENTO — TEMPO ILIMITADO
+              OFERTA EXCLUSIVA — TEMPO ILIMITADO
             </span>
             <div className="flex justify-center items-center gap-4">
               <div className="text-left">
                 <p className="text-[10px] font-mono text-white/40 uppercase tracking-wider">Preço Normal</p>
-                <p className="text-base sm:text-lg text-white/40 line-through font-extrabold">R$ 597,90<span className="text-xs font-normal">/mês</span></p>
+                <p className="text-base sm:text-lg text-white/40 line-through font-extrabold">R$ 897,90<span className="text-xs font-normal">/mês</span></p>
               </div>
               <div className="h-8 w-[1px] bg-white/10" />
               <div className="text-left">
                 <p className="text-[10px] font-mono text-[#d4af37] uppercase tracking-wider font-bold">Hoje por Apenas</p>
                 <p className="text-2xl sm:text-3xl text-white font-black text-glow-gold flex items-baseline gap-1">
-                  <span className="text-[#f3e5ab]">R$ 247,90</span>
+                  <span className="text-[#f3e5ab]">R$ 347,90</span>
                   <span className="text-xs text-white/60 font-medium">/mês</span>
                 </p>
               </div>

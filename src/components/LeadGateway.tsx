@@ -91,7 +91,7 @@ export default function LeadGateway({ onUnlock }: LeadGatewayProps) {
         instagram: instagram.trim(),
         timestamp: new Date().toISOString(),
         status: 'new', // Matches the CRM kanban status
-        value: 247.90
+        value: 347.90
       };
       
       leads.push(newLead);

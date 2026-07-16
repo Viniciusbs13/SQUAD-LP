@@ -66,7 +66,7 @@ export default function LeadQualificationModal({
         instagram: instagram.trim(),
         timestamp: new Date().toISOString(),
         status: 'new',
-        value: 247.90
+        value: 347.90
       };
       leads.push(newLead);
       localStorage.setItem('squad_leads', JSON.stringify(leads));
@@ -76,7 +76,7 @@ export default function LeadQualificationModal({
 
     // Redirect to the Kiwify checkout URL
     setTimeout(() => {
-      window.location.href = "https://pay.kiwify.com.br/0SuI59E";
+      window.location.href = "https://pay.kiwify.com.br/TxNzTKc";
     }, 800);
   };
 
@@ -132,9 +132,9 @@ export default function LeadQualificationModal({
               <div className="mb-6 p-4 rounded-xl bg-white/[0.02] border border-[#d4af37]/15 flex items-center justify-between gap-4">
                 <div>
                   <p className="text-[9px] font-mono text-white/40 uppercase tracking-wider">Assinatura Mensal Comercial</p>
-                  <p className="text-xs text-white/40 line-through mt-0.5">Era R$ 597,90/mês</p>
+                  <p className="text-xs text-white/40 line-through mt-0.5">Era R$ 897,90/mês</p>
                   <div className="flex items-baseline gap-1 mt-0.5">
-                    <span className="text-lg sm:text-2xl font-black text-[#f3e5ab] text-glow-gold">R$ 247,90</span>
+                    <span className="text-lg sm:text-2xl font-black text-[#f3e5ab] text-glow-gold">R$ 347,90</span>
                     <span className="text-[10px] text-white/60 font-medium">/mês</span>
                   </div>
                 </div>
@@ -160,7 +160,7 @@ export default function LeadQualificationModal({
                     Estamos te redirecionando para a página de pagamento seguro da Kiwify. Caso não seja redirecionado automaticamente, clique no botão abaixo.
                   </p>
                   <a
-                    href="https://pay.kiwify.com.br/0SuI59E"
+                    href="https://pay.kiwify.com.br/TxNzTKc"
                     className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/80 hover:text-white text-xs font-semibold border border-white/10 transition-all"
                   >
                     Clique aqui se não for redirecionado
