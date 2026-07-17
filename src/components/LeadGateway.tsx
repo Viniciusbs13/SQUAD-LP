@@ -111,7 +111,7 @@ export default function LeadGateway({ onUnlock }: LeadGatewayProps) {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#02050e] flex flex-col items-center justify-center px-4 py-12 overflow-x-hidden selection:bg-[#d4af37] selection:text-black">
+    <div className="relative min-h-screen bg-[#02050e] flex flex-col items-center justify-start lg:justify-center px-3 sm:px-4 py-6 md:py-12 overflow-x-hidden selection:bg-[#d4af37] selection:text-black">
       
       {/* Decorative premium radial gradients */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#d4af37]/5 rounded-full blur-[120px] pointer-events-none" />
@@ -123,7 +123,7 @@ export default function LeadGateway({ onUnlock }: LeadGatewayProps) {
       <div className="relative z-10 w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         
         {/* Left Column: Branding, Pain points, Core promise */}
-        <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
+        <div className="lg:col-span-7 space-y-4 md:space-y-6 text-center lg:text-left order-2 lg:order-1">
           
           <motion.div
             initial={{ opacity: 0, y: -15 }}
@@ -138,7 +138,7 @@ export default function LeadGateway({ onUnlock }: LeadGatewayProps) {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight"
+            className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight"
           >
             SQUAD <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f3e5ab] via-[#d4af37] to-[#9a7b1c] text-glow-gold">CULTURA DE VENDAS</span>
           </motion.h1>
@@ -197,7 +197,7 @@ export default function LeadGateway({ onUnlock }: LeadGatewayProps) {
         </div>
 
         {/* Right Column: Premium Gold/Navy Gating Form Card */}
-        <div className="lg:col-span-5 w-full">
+        <div className="lg:col-span-5 w-full order-1 lg:order-2">
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -315,7 +315,7 @@ export default function LeadGateway({ onUnlock }: LeadGatewayProps) {
                 <div className="pt-2">
                   <button 
                     type="submit"
-                    className="w-full h-12 rounded-xl bg-gradient-to-r from-[#f3e5ab] via-[#d4af37] to-[#9a7b1c] text-black font-black text-xs uppercase tracking-widest transition-all cursor-pointer flex items-center justify-center gap-2 border border-[#f3e5ab]/20 transform hover:scale-[1.01] active:scale-[0.99] gold-glow-btn"
+                    className="w-full h-12 px-2 rounded-xl bg-gradient-to-r from-[#f3e5ab] via-[#d4af37] to-[#9a7b1c] text-black font-black text-[11px] sm:text-xs uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 border border-[#f3e5ab]/20 transform hover:scale-[1.01] active:scale-[0.99] gold-glow-btn"
                   >
                     Desbloquear Conteúdo e Vídeo
                     <ArrowRight className="w-4 h-4 text-black" />

@@ -486,7 +486,7 @@ export default function EnterprisePortal({
                   <>
                     <iframe
                       src={vslIframeUrl}
-                      className="absolute w-full h-[150%] -top-[36%] left-0 border-0 sm:inset-0 sm:w-full sm:h-full sm:top-0 sm:translate-y-0 sm:scale-100"
+                      className="absolute w-full h-[142%] -top-[31%] left-0 border-0 sm:inset-0 sm:w-full sm:h-full sm:top-0 sm:translate-y-0 sm:scale-100"
                       allow="autoplay; fullscreen"
                       allowFullScreen
                       sandbox="allow-scripts allow-same-origin allow-presentation"
@@ -1208,7 +1208,7 @@ export default function EnterprisePortal({
                   {playingVideoId === v.id ? (
                     <iframe
                       src={`${v.videoUrl}?autoplay=1`}
-                      className="absolute w-full h-[150%] -top-[36%] left-0 border-0 rounded-3xl sm:inset-0 sm:w-full sm:h-full sm:top-0 sm:translate-y-0 sm:scale-100"
+                      className="absolute w-full h-[142%] -top-[31%] left-0 border-0 rounded-3xl sm:inset-0 sm:w-full sm:h-full sm:top-0 sm:translate-y-0 sm:scale-100"
                       allow="autoplay; encrypted-media"
                       allowFullScreen
                       referrerPolicy="no-referrer"
