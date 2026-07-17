@@ -124,6 +124,12 @@ export default function EnterprisePortal({
     return () => clearInterval(interval);
   }, [vslStarted]);
 
+  useEffect(() => {
+    if (vslTime >= 60 && !vslUnlocked) {
+      onUnlockVsl();
+    }
+  }, [vslTime, vslUnlocked, onUnlockVsl]);
+
   const handleVslRewind = () => {
     const newTime = Math.max(0, vslTime - 10);
     setVslTime(newTime);
