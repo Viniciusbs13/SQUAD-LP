@@ -128,6 +128,9 @@ export default function EnterprisePortal({
     if (vslTime >= 60 && !vslUnlocked) {
       onUnlockVsl();
     }
+    if (vslTime >= 87) {
+      handleVslRestart();
+    }
   }, [vslTime, vslUnlocked, onUnlockVsl]);
 
   const handleVslRewind = () => {
