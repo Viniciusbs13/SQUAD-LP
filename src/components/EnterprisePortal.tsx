@@ -477,7 +477,7 @@ export default function EnterprisePortal({
                   <>
                     <iframe
                       src={vslIframeUrl}
-                      className="absolute inset-0 w-full h-full border-0"
+                      className="absolute w-full h-[150%] -top-[36%] left-0 border-0 sm:inset-0 sm:w-full sm:h-full sm:top-0 sm:translate-y-0 sm:scale-100"
                       allow="autoplay; fullscreen"
                       allowFullScreen
                       sandbox="allow-scripts allow-same-origin allow-presentation"
@@ -1195,11 +1195,11 @@ export default function EnterprisePortal({
                 className="relative rounded-3xl overflow-hidden border border-[#d4af37]/20 group cursor-pointer"
                 onClick={() => setPlayingVideoId(v.id)}
               >
-                <div className="relative aspect-[3/4] bg-[#0d1e4a]/40">
+                <div className="relative aspect-video bg-[#0d1e4a]/40 overflow-hidden">
                   {playingVideoId === v.id ? (
                     <iframe
                       src={`${v.videoUrl}?autoplay=1`}
-                      className="w-full h-full border-0 rounded-3xl"
+                      className="absolute w-full h-[150%] -top-[36%] left-0 border-0 rounded-3xl sm:inset-0 sm:w-full sm:h-full sm:top-0 sm:translate-y-0 sm:scale-100"
                       allow="autoplay; encrypted-media"
                       allowFullScreen
                       referrerPolicy="no-referrer"
