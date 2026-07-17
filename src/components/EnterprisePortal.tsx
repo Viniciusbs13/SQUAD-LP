@@ -526,6 +526,37 @@ export default function EnterprisePortal({
               </div>
             </motion.div>
 
+            {/* Elegant conversion buttons that appear when unlocked */}
+            <AnimatePresence>
+              {vslUnlocked && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8 mb-4 w-full max-w-2xl relative z-20 mx-auto"
+                >
+                  <button
+                    onClick={onOpenQualifyModal}
+                    className="w-full sm:w-auto px-5 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-[#f3e5ab] via-[#d4af37] to-[#9a7b1c] text-black font-extrabold rounded-xl gold-glow-btn text-[11px] sm:text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer border border-[#f3e5ab]/20 transform hover:scale-[1.02] transition-transform duration-300"
+                  >
+                    Quero Entrar no Squad
+                    <ArrowRight className="w-4 h-4 text-black" />
+                  </button>
+                  
+                  <button
+                    onClick={() => {
+                      const el = document.getElementById('pillars');
+                      el?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="w-full sm:w-auto px-5 py-3 sm:px-8 sm:py-4 bg-transparent hover:bg-white/[0.03] text-[#d4af37] hover:text-[#f3e5ab] font-bold rounded-xl border border-[#d4af37]/30 hover:border-[#f3e5ab]/50 transition-all text-[11px] sm:text-xs uppercase tracking-wider cursor-pointer"
+                  >
+                    Conhecer o Método
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             {/* Os 3 Pilares do SQUAD abaixo do vídeo */}
             <div className="mt-8 md:mt-10 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 relative z-10 w-full text-left">
               <div className="p-4 sm:p-5 rounded-2xl bg-white/[0.02] border border-white/5 backdrop-blur-[6px] hover:border-[#d4af37]/20 transition-all duration-300">
@@ -556,38 +587,6 @@ export default function EnterprisePortal({
               </div>
             </div>
           </div>
-
-          {/* Elegant buttons below the video that only appear after 5s */}
-          <AnimatePresence>
-            {vslUnlocked && (
-              <motion.div 
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8 w-full max-w-2xl relative z-20"
-              >
-                <button
-                  onClick={onOpenQualifyModal}
-                  className="w-full sm:w-auto px-5 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-[#f3e5ab] via-[#d4af37] to-[#9a7b1c] text-black font-extrabold rounded-xl gold-glow-btn text-[11px] sm:text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer border border-[#f3e5ab]/20 transform hover:scale-[1.02] transition-transform duration-300"
-                >
-                  Quero Entrar no Squad
-                  <ArrowRight className="w-4 h-4 text-black" />
-                </button>
-                
-                <button
-                  onClick={() => {
-                    const el = document.getElementById('pillars');
-                    el?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="w-full sm:w-auto px-5 py-3 sm:px-8 sm:py-4 bg-transparent hover:bg-white/[0.03] text-[#d4af37] hover:text-[#f3e5ab] font-bold rounded-xl border border-[#d4af37]/30 hover:border-[#f3e5ab]/50 transition-all text-[11px] sm:text-xs uppercase tracking-wider cursor-pointer"
-                >
-                  Conhecer o Método
-                </button>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
         </div>
       </section>
       </div>
@@ -963,10 +962,10 @@ export default function EnterprisePortal({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.45 }}
-              className="absolute -bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-3 px-5 py-3 rounded-xl bg-[#02050e]/90 border border-[#d4af37]/30 backdrop-blur-md shadow-lg whitespace-nowrap"
+              className="absolute -bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-2 sm:gap-3 px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl bg-[#02050e]/90 border border-[#d4af37]/30 backdrop-blur-md shadow-lg w-[calc(100vw-32px)] sm:w-max max-w-[450px] sm:max-w-none justify-center whitespace-normal sm:whitespace-nowrap"
             >
-              <span className="w-2 h-2 rounded-full bg-[#d4af37] animate-pulse" />
-              <span className="text-white/80 font-mono text-[10px] sm:text-[11px] uppercase tracking-widest">
+              <span className="w-2 h-2 rounded-full bg-[#d4af37] animate-pulse flex-shrink-0" />
+              <span className="text-white/80 font-mono text-[10px] sm:text-[11px] uppercase tracking-widest text-center sm:text-left">
                 Nossos clientes já faturaram mais de 600 milhões de reais
               </span>
             </motion.div>
