@@ -114,7 +114,7 @@ export default function EnterprisePortal({
   // Custom states for unpausable VSL player
   const [vslStarted, setVslStarted] = useState(true);
   const [vslTime, setVslTime] = useState(0);
-  const [vslIframeUrl, setVslIframeUrl] = useState("https://drive.google.com/file/d/14nKk_RISWW-PHuQPJpgj3-4qrgfCOv7_/preview?autoplay=1&loop=1&playlist=14nKk_RISWW-PHuQPJpgj3-4qrgfCOv7_");
+  const [vslIframeUrl, setVslIframeUrl] = useState("https://player.vimeo.com/video/1211872450?autoplay=1&autopause=0&muted=0&controls=0&title=0&byline=0&portrait=0");
 
   useEffect(() => {
     if (!vslStarted) return;
@@ -136,12 +136,12 @@ export default function EnterprisePortal({
   const handleVslRewind = () => {
     const newTime = Math.max(0, vslTime - 10);
     setVslTime(newTime);
-    setVslIframeUrl(`https://drive.google.com/file/d/14nKk_RISWW-PHuQPJpgj3-4qrgfCOv7_/preview?autoplay=1&loop=1&playlist=14nKk_RISWW-PHuQPJpgj3-4qrgfCOv7_&t=${newTime}s&start=${newTime}`);
+    setVslIframeUrl(`https://player.vimeo.com/video/1211872450?autoplay=1&autopause=0&muted=0&controls=0&title=0&byline=0&portrait=0#t=${newTime}s`);
   };
 
   const handleVslRestart = () => {
     setVslTime(0);
-    setVslIframeUrl(`https://drive.google.com/file/d/14nKk_RISWW-PHuQPJpgj3-4qrgfCOv7_/preview?autoplay=1&loop=1&playlist=14nKk_RISWW-PHuQPJpgj3-4qrgfCOv7_&t=0s&start=0`);
+    setVslIframeUrl(`https://player.vimeo.com/video/1211872450?autoplay=1&autopause=0&muted=0&controls=0&title=0&byline=0&portrait=0#t=0s`);
   };
 
   const formatVslTime = (totalSeconds: number) => {
@@ -486,10 +486,14 @@ export default function EnterprisePortal({
                   <>
                     <iframe
                       src={vslIframeUrl}
-                      className="absolute w-full h-[142%] -top-[31%] left-0 border-0 sm:inset-0 sm:w-full sm:h-full sm:top-0 sm:translate-y-0 sm:scale-100"
-                      allow="autoplay; fullscreen"
+                      className="absolute inset-0 w-full h-full border-0 pointer-events-none"
+                      allow="autoplay; fullscreen; picture-in-picture"
                       allowFullScreen
-                      sandbox="allow-scripts allow-same-origin allow-presentation"
+                    />
+                    {/* Transparent Click Shield Overlay to prevent pausing */}
+                    <div 
+                      className="absolute inset-0 z-20 bg-transparent cursor-default select-none pointer-events-auto"
+                      onClick={(e) => e.stopPropagation()}
                     />
                   </>
                 )}
