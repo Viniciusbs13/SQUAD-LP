@@ -114,7 +114,7 @@ export default function EnterprisePortal({
   // Custom states for unpausable VSL player
   const [vslStarted, setVslStarted] = useState(true);
   const [vslTime, setVslTime] = useState(0);
-  const [vslIframeUrl, setVslIframeUrl] = useState("https://player.vimeo.com/video/1211872450?autoplay=1&autopause=0&muted=0&controls=0&title=0&byline=0&portrait=0");
+  const [vslIframeUrl, setVslIframeUrl] = useState("https://player.vimeo.com/video/1211872450?autoplay=1&loop=1&autopause=0&muted=0&controls=0&title=0&byline=0&portrait=0");
 
   useEffect(() => {
     if (!vslStarted) return;
@@ -128,20 +128,17 @@ export default function EnterprisePortal({
     if (vslTime >= 60 && !vslUnlocked) {
       onUnlockVsl();
     }
-    if (vslTime >= 87) {
-      handleVslRestart();
-    }
   }, [vslTime, vslUnlocked, onUnlockVsl]);
 
   const handleVslRewind = () => {
     const newTime = Math.max(0, vslTime - 10);
     setVslTime(newTime);
-    setVslIframeUrl(`https://player.vimeo.com/video/1211872450?autoplay=1&autopause=0&muted=0&controls=0&title=0&byline=0&portrait=0#t=${newTime}s`);
+    setVslIframeUrl(`https://player.vimeo.com/video/1211872450?autoplay=1&loop=1&autopause=0&muted=0&controls=0&title=0&byline=0&portrait=0#t=${newTime}s`);
   };
 
   const handleVslRestart = () => {
     setVslTime(0);
-    setVslIframeUrl(`https://player.vimeo.com/video/1211872450?autoplay=1&autopause=0&muted=0&controls=0&title=0&byline=0&portrait=0#t=0s`);
+    setVslIframeUrl(`https://player.vimeo.com/video/1211872450?autoplay=1&loop=1&autopause=0&muted=0&controls=0&title=0&byline=0&portrait=0#t=0s`);
   };
 
   const formatVslTime = (totalSeconds: number) => {
