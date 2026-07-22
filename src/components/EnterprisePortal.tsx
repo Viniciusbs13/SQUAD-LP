@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Sparkles,
   Play,
+  Pause,
   ArrowRight,
   TrendingDown,
   X,
@@ -67,14 +68,14 @@ interface VideoCase {
 const VIDEO_CASES: VideoCase[] = [
   {
     id: 'case-vid-1',
-    thumbnail: 'https://lh3.googleusercontent.com/d/120cVM-ig-ICR7osy79FJyoSfIUOeercR',
-    videoUrl: 'https://drive.google.com/file/d/120cVM-ig-ICR7osy79FJyoSfIUOeercR/preview',
+    thumbnail: 'https://vumbnail.com/1211874529.jpg',
+    videoUrl: 'https://player.vimeo.com/video/1211874529',
     caption: '',
   },
   {
     id: 'case-vid-2',
-    thumbnail: 'https://lh3.googleusercontent.com/d/1C-OhEMWfvljOOE6ezov3SqOqaufa0Qyw',
-    videoUrl: 'https://drive.google.com/file/d/1C-OhEMWfvljOOE6ezov3SqOqaufa0Qyw/preview',
+    thumbnail: 'https://vumbnail.com/1211874832.jpg',
+    videoUrl: 'https://player.vimeo.com/video/1211874832',
     caption: '',
   },
 ];
@@ -112,33 +113,95 @@ export default function EnterprisePortal({
   const reducedMotion = useReducedMotion();
 
   // Custom states for unpausable VSL player
+  const vslIframeRef = useRef<HTMLIFrameElement>(null);
   const [vslStarted, setVslStarted] = useState(true);
   const [vslTime, setVslTime] = useState(0);
+  const [isVslPaused, setIsVslPaused] = useState(false);
+  const [vslPauseUnlocked, setVslPauseUnlocked] = useState(false);
   const [vslIframeUrl, setVslIframeUrl] = useState("https://player.vimeo.com/video/1211872450?autoplay=1&loop=1&autopause=0&muted=0&controls=0&title=0&byline=0&portrait=0");
 
   useEffect(() => {
-    if (!vslStarted) return;
+    if (!vslStarted || isVslPaused) return;
     const interval = setInterval(() => {
       setVslTime((prev) => prev + 1);
     }, 1000);
     return () => clearInterval(interval);
-  }, [vslStarted]);
+  }, [vslStarted, isVslPaused]);
 
   useEffect(() => {
     if (vslTime >= 60 && !vslUnlocked) {
       onUnlockVsl();
     }
-  }, [vslTime, vslUnlocked, onUnlockVsl]);
+    if (vslTime >= 80 && !vslPauseUnlocked) {
+      setVslPauseUnlocked(true);
+    }
+  }, [vslTime, vslUnlocked, vslPauseUnlocked, onUnlockVsl]);
+
+  const toggleVslPause = () => {
+    if (!vslPauseUnlocked && vslTime < 80) return;
+
+    if (vslIframeRef.current && vslIframeRef.current.contentWindow) {
+      try {
+        if (isVslPaused) {
+          vslIframeRef.current.contentWindow.postMessage(
+            JSON.stringify({ method: 'play' }),
+            '*'
+          );
+          setIsVslPaused(false);
+        } else {
+          vslIframeRef.current.contentWindow.postMessage(
+            JSON.stringify({ method: 'pause' }),
+            '*'
+          );
+          setIsVslPaused(true);
+        }
+      } catch {
+        setIsVslPaused(!isVslPaused);
+      }
+    } else {
+      setIsVslPaused(!isVslPaused);
+    }
+  };
 
   const handleVslRewind = () => {
     const newTime = Math.max(0, vslTime - 10);
     setVslTime(newTime);
-    setVslIframeUrl(`https://player.vimeo.com/video/1211872450?autoplay=1&loop=1&autopause=0&muted=0&controls=0&title=0&byline=0&portrait=0#t=${newTime}s`);
+    setIsVslPaused(false);
+    if (vslIframeRef.current && vslIframeRef.current.contentWindow) {
+      try {
+        vslIframeRef.current.contentWindow.postMessage(
+          JSON.stringify({ method: 'setCurrentTime', value: newTime }),
+          '*'
+        );
+        vslIframeRef.current.contentWindow.postMessage(
+          JSON.stringify({ method: 'play' }),
+          '*'
+        );
+      } catch {
+        // ignore
+      }
+    }
+    setVslIframeUrl(`https://player.vimeo.com/video/1211872450?autoplay=1&loop=1&autopause=0&muted=0&controls=0&title=0&byline=0&portrait=0&cb=${Date.now()}#t=${newTime}s`);
   };
 
   const handleVslRestart = () => {
     setVslTime(0);
-    setVslIframeUrl(`https://player.vimeo.com/video/1211872450?autoplay=1&loop=1&autopause=0&muted=0&controls=0&title=0&byline=0&portrait=0#t=0s`);
+    setIsVslPaused(false);
+    if (vslIframeRef.current && vslIframeRef.current.contentWindow) {
+      try {
+        vslIframeRef.current.contentWindow.postMessage(
+          JSON.stringify({ method: 'setCurrentTime', value: 0 }),
+          '*'
+        );
+        vslIframeRef.current.contentWindow.postMessage(
+          JSON.stringify({ method: 'play' }),
+          '*'
+        );
+      } catch {
+        // ignore
+      }
+    }
+    setVslIframeUrl(`https://player.vimeo.com/video/1211872450?autoplay=1&loop=1&autopause=0&muted=0&controls=0&title=0&byline=0&portrait=0&cb=${Date.now()}#t=0s`);
   };
 
   const formatVslTime = (totalSeconds: number) => {
@@ -482,16 +545,35 @@ export default function EnterprisePortal({
                 ) : (
                   <>
                     <iframe
+                      ref={vslIframeRef}
                       src={vslIframeUrl}
                       className="absolute inset-0 w-full h-full border-0 pointer-events-none"
                       allow="autoplay; fullscreen; picture-in-picture"
                       allowFullScreen
                     />
-                    {/* Transparent Click Shield Overlay to prevent pausing */}
-                    <div 
-                      className="absolute inset-0 z-20 bg-transparent cursor-default select-none pointer-events-auto"
-                      onClick={(e) => e.stopPropagation()}
-                    />
+                    {!vslPauseUnlocked ? (
+                      /* Transparent Click Shield Overlay to prevent pausing during first 1m 20s */
+                      <div 
+                        className="absolute inset-0 z-20 bg-transparent cursor-default select-none pointer-events-auto"
+                        onClick={(e) => e.stopPropagation()}
+                      />
+                    ) : (
+                      /* Interactive overlay after 1m 20s allowing play/pause toggle */
+                      <div 
+                        className={`absolute inset-0 z-20 bg-transparent cursor-pointer select-none pointer-events-auto flex items-center justify-center transition-all duration-300 ${isVslPaused ? 'bg-black/60 backdrop-blur-[2px]' : ''}`}
+                        onClick={toggleVslPause}
+                      >
+                        {isVslPaused && (
+                          <div className="flex flex-col items-center justify-center p-4 rounded-2xl bg-black/85 border border-[#d4af37]/40 shadow-2xl animate-in fade-in zoom-in duration-200">
+                            <div className="w-14 h-14 rounded-full bg-[#d4af37]/20 text-[#f3e5ab] border border-[#d4af37]/50 flex items-center justify-center mb-2">
+                              <Play className="w-6 h-6 fill-current ml-1 text-[#f3e5ab]" />
+                            </div>
+                            <span className="text-xs font-bold text-white uppercase tracking-wider">Vídeo Pausado</span>
+                            <span className="text-[10px] text-white/70 mt-0.5">Clique para continuar assistindo</span>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </>
                 )}
               </div>
@@ -500,14 +582,36 @@ export default function EnterprisePortal({
               <div className="mt-3 px-3 py-2 sm:px-4 sm:py-2.5 bg-black/40 rounded-xl border border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
                 {/* Time Indicator */}
                 <div className="flex items-center gap-2 text-white/55 font-mono text-[11px] sm:text-xs">
-                  <span className={`w-2 h-2 rounded-full ${vslStarted ? 'bg-emerald-500 animate-pulse' : 'bg-white/20'}`} />
+                  <span className={`w-2 h-2 rounded-full ${vslStarted ? (isVslPaused ? 'bg-amber-500' : 'bg-emerald-500 animate-pulse') : 'bg-white/20'}`} />
                   <span>
-                    {vslStarted ? `REPRODUZINDO: ${formatVslTime(vslTime)}` : 'PRONTO PARA REPRODUZIR'}
+                    {vslStarted 
+                      ? (isVslPaused ? `PAUSADO: ${formatVslTime(vslTime)}` : `REPRODUZINDO: ${formatVslTime(vslTime)}`)
+                      : 'PRONTO PARA REPRODUZIR'}
                   </span>
                 </div>
                 
                 {/* Controls */}
                 <div className="flex items-center gap-2">
+                  {vslPauseUnlocked && (
+                    <button
+                      onClick={toggleVslPause}
+                      disabled={!vslStarted}
+                      className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#d4af37]/20 hover:bg-[#d4af37]/30 text-[#f3e5ab] text-[11px] sm:text-xs font-semibold border border-[#d4af37]/40 transition-all cursor-pointer active:scale-95"
+                    >
+                      {isVslPaused ? (
+                        <>
+                          <Play className="w-3.5 h-3.5 fill-current text-[#f3e5ab]" />
+                          <span>Continuar</span>
+                        </>
+                      ) : (
+                        <>
+                          <Pause className="w-3.5 h-3.5 text-[#f3e5ab]" />
+                          <span>Pausar</span>
+                        </>
+                      )}
+                    </button>
+                  )}
+
                   <button
                     onClick={handleVslRewind}
                     disabled={!vslStarted}
@@ -1207,11 +1311,10 @@ export default function EnterprisePortal({
                 <div className="relative aspect-video bg-[#0d1e4a]/40 overflow-hidden">
                   {playingVideoId === v.id ? (
                     <iframe
-                      src={`${v.videoUrl}?autoplay=1`}
-                      className="absolute w-full h-[142%] -top-[31%] left-0 border-0 rounded-3xl sm:inset-0 sm:w-full sm:h-full sm:top-0 sm:translate-y-0 sm:scale-100"
-                      allow="autoplay; encrypted-media"
+                      src={`${v.videoUrl}?autoplay=1&autopause=0`}
+                      className="absolute inset-0 w-full h-full border-0 rounded-3xl"
+                      allow="autoplay; fullscreen; picture-in-picture"
                       allowFullScreen
-                      referrerPolicy="no-referrer"
                     />
                   ) : (
                     <>
